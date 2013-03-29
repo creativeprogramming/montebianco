@@ -33,11 +33,13 @@ class K2ControllerItemlist extends K2Controller
 			$cache = false;
 		}
 		
+                //setting url params for joomla cache
                 $task = JRequest::getWord('task');
                 if ($task=="tag"){
                     $urlparams['tag'] = JRequest::getString('tag');    
                 }
-                $urlparams['task'] = $task;    
+                $urlparams['task'] = $task;  
+                //older pages disabled for saving you from site performance issues:
 		$urlparams['limit'] = 'UINT';
 		$urlparams['limitstart'] = 'UINT';
 		
