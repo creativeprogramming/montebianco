@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="2.5" method="upgrade">
-	<name>COM_K2</name>
-	<author>JoomlaWorks</author>
-	<creationDate>February 8th, 2013</creationDate>
-	<copyright>Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.</copyright>
-	<authorEmail>contact@joomlaworks.net</authorEmail>
-	<authorUrl>www.joomlaworks.net</authorUrl>
+	<name>COM_MONTEBIANCO</name>
+	<author>Creativeprogramming (forked from JoomlaWorks Ltd GPL Project)</author>
+	<creationDate>March 30th, 2013</creationDate>
+	<authorEmail>info@creativeprogramming.it</authorEmail>
+	<authorUrl>www.creativeprogramming.it</authorUrl>
 	<version>2.6.5</version>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<description>Thank you for installing K2 by JoomlaWorks, the powerful content extension for Joomla!</description>
+	<description>Thank you for installing Montebianco, a creativeprogramming.it maintained version of K2 by JoomlaWorks, the powerful content extension for Joomla!</description>
 	<installfile>install.k2.php</installfile>
 	<uninstallfile>uninstall.k2.php</uninstallfile>
 	<scriptfile>script.k2.php</scriptfile>
@@ -25,7 +24,7 @@
 		</sql>
 	</uninstall>
 	<updateservers>
-		<server type="extension" priority="1" name="K2 Updates">http://getk2.org/update.xml</server>
+		<server type="extension" priority="1" name="Montebianco Updates">https://raw.github.com/creativeprogramming/montebianco/master/update_server/update.xml</server>
 	</updateservers>
 	<files folder="components/com_k2">
 		<folder>controllers</folder>
