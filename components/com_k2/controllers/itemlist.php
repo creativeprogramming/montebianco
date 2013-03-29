@@ -32,11 +32,15 @@ class K2ControllerItemlist extends K2Controller
 		{
 			$cache = false;
 		}
-		if (K2_JVERSION != '15')
-		{
-			$urlparams['limit'] = 'UINT';
-			$urlparams['limitstart'] = 'UINT';
-		}
+		
+                $task = JRequest::getWord('task');
+                if ($task=="tag"){
+                    $urlparams['tag'] = JRequest::getString('tag');    
+                }
+                $urlparams['task'] = $task;    
+		$urlparams['limit'] = 'UINT';
+		$urlparams['limitstart'] = 'UINT';
+		
 		parent::display($cache, $urlparams);
 	}
 
