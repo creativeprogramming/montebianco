@@ -1,7 +1,7 @@
 montebianco
 ===========
 
-A personal and back/forward compatible K2 (the popular Joomla extension) fork
+A personal and back/forward compatible K2 (the popular Joomla extension) synced fork 
 
 NOTE: this is just an EXPERIMENTAL and personal customized version of K2 that I use for my customers sites, 
 I share my experiences here under the http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL open source license (same of K2 2.5.6) but please if you are looking to to use K2
