@@ -40,8 +40,8 @@ body.contentpane #k2Container {padding:16px;} /* used in popups */
 .clr {clear:both;height:0;line-height:0;display:block;float:none;padding:0;margin:0;border:none;}
 
 /* --- Zebra rows --- */
-.even {background:#fffff0;padding:2px;border-bottom:1px dotted #ccc;}
-.odd {background:#fff;padding:2px;border-bottom:1px dotted #ccc;}
+.even {padding:2px;border-bottom:1px dotted #ccc;}
+.odd {padding:2px;border-bottom:1px dotted #ccc;}
 
 /* --- RSS feed icon --- */
 div.k2FeedIcon {padding:4px 8px;}
@@ -128,7 +128,7 @@ table.csvData tr td {}
 /* --- Featured flags: the classes are repeated further below to indicate placement in the CSS structure --- */
 div.itemIsFeatured,
 div.catItemIsFeatured,
-div.userItemIsFeatured {background:url(../images/system/featuredItem.png) no-repeat 100% 0;}
+div.userItemIsFeatured {background:url(../images/system/evidenza-silverglow.png) no-repeat 100% 0;}
 
 
 
@@ -142,12 +142,12 @@ div.itemView {padding:8px 0 24px 0;margin:0 0 24px 0;border-bottom:1px dotted #c
 div.itemIsFeatured {} /* Attach a class for each featured item */
 
 span.itemEditLink {float:right;display:block;padding:4px 0;margin:0;width:120px;text-align:right;}
-span.itemEditLink a {padding:2px 12px;border:1px solid #ccc;background:#eee;text-decoration:none;font-size:11px;font-weight:normal;font-family:Arial, Helvetica, sans-serif;}
+span.itemEditLink a {padding:2px 12px;border:1px solid #ccc;background:#eee;text-decoration:none;font-size:11px;font-weight:normal;}
 span.itemEditLink a:hover {background:#ffffcc;}
 
 div.itemHeader {}
 	div.itemHeader span.itemDateCreated {color:#999;font-size:11px;}
-	div.itemHeader h2.itemTitle {font-family:Georgia, "Times New Roman", Times, serif;font-size:36px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
+	div.itemHeader h2.itemTitle {font-size:36px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
 	div.itemHeader h2.itemTitle span {}
 	div.itemHeader h2.itemTitle span sup {font-size:12px;color:#CF1919;text-decoration:none;} /* "Featured" presented in superscript */
 	div.itemHeader span.itemAuthor {display:block;padding:0;margin:0;}
@@ -191,7 +191,7 @@ div.itemImageBlock {padding:8px;margin:0 0 16px 0;}
 	span.itemImageCaption {color:#666;float:left;display:block;font-size:11px;}
 	span.itemImageCredits {color:#999;float:right;display:block;font-style:italic;font-size:11px;}
 
-div.itemIntroText {color:#444;font-size:18px;font-weight:bold;line-height:24px;padding:4px 0 12px 0;}
+div.itemIntroText {padding:4px 0 12px 0;}
 	div.itemIntroText img {}
 
 div.itemFullText {}
@@ -209,12 +209,12 @@ div.itemExtraFields {margin:16px 0 0 0;padding:8px 0 0 0;border-top:1px dotted #
 div.itemContentFooter {display:block;text-align:right;padding:4px;margin:16px 0 4px 0;border-top:1px solid #ddd;color:#999;}
 	span.itemHits {float:left;}
 	span.itemDateModified {}
-
+	
 div.itemSocialSharing {padding:8px 0;}
 	div.itemTwitterButton {float:left;margin:2px 24px 0 0;}
 	div.itemFacebookButton {float:left;margin-right:24px;width:200px;}
 	div.itemGooglePlusOneButton {}
-
+	
 div.itemLinks {margin:16px 0;padding:0;}
 
 div.itemCategory {padding:4px;border-bottom:1px dotted #ccc;}
@@ -240,7 +240,7 @@ div.itemAuthorBlock {background:#f7fafe;border:1px solid #ddd;margin:0 0 16px 0;
 	div.itemAuthorBlock img.itemAuthorAvatar {float:left;display:block;background:#fff;padding:4px;border:1px solid #ddd;margin:0 8px 0 0;}
 	div.itemAuthorBlock div.itemAuthorDetails {margin:0;padding:4px 0 0 0;}
 	div.itemAuthorBlock div.itemAuthorDetails h3.authorName {margin:0 0 4px 0;padding:0;}
-	div.itemAuthorBlock div.itemAuthorDetails h3.authorName a {font-family:Georgia, "Times New Roman", Times, serif;font-size:16px;}
+	div.itemAuthorBlock div.itemAuthorDetails h3.authorName a {font-size:16px;}
 	div.itemAuthorBlock div.itemAuthorDetails h3.authorName a:hover {}
 	div.itemAuthorBlock div.itemAuthorDetails p {}
 	div.itemAuthorBlock div.itemAuthorDetails span.itemAuthorUrl {font-weight:bold;color:#555;border-right:1px solid #ccc;padding:0 8px 0 0;margin:0 4px 0 0;}
@@ -305,7 +305,7 @@ div.itemComments {background:#f7fafe;border:1px solid #ddd;padding:16px;}
 	div.itemComments ul.itemCommentsList li span.commentLink {float:right;margin-left:8px;}
 	div.itemComments ul.itemCommentsList li span.commentLink a {font-size:11px;color:#999;text-decoration:underline;}
 	div.itemComments ul.itemCommentsList li span.commentLink a:hover {font-size:11px;color:#555;text-decoration:underline;}
-
+	
 	div.itemComments ul.itemCommentsList li span.commentToolbar {display:block;clear:both;}
 	div.itemComments ul.itemCommentsList li span.commentToolbar a {font-size:11px;color:#999;text-decoration:underline;margin-right:4px;}
 	div.itemComments ul.itemCommentsList li span.commentToolbar a:hover {font-size:11px;color:#555;text-decoration:underline;}
@@ -333,7 +333,7 @@ div.k2ReportCommentFormContainer {padding:8px;width:480px;margin:0 auto;}
 	div.k2ReportCommentFormContainer blockquote {width:462px;background:#f7fafe;border:1px solid #ddd;padding:8px;margin:0 0 8px 0;}
 	div.k2ReportCommentFormContainer blockquote span.quoteIconLeft {font-style:italic;font-weight:bold;font-size:40px;color:#135CAE;line-height:30px;vertical-align:top;display:block;float:left;}
 	div.k2ReportCommentFormContainer blockquote span.quoteIconRight {font-style:italic;font-weight:bold;font-size:40px;color:#135CAE;line-height:30px;vertical-align:top;display:block;float:right;}
-	div.k2ReportCommentFormContainer blockquote span.theComment {font-family:Georgia, "Times New Roman", Times, serif;font-style:italic;font-size:12px;font-weight:normal;color:#000;padding:0 4px;}
+	div.k2ReportCommentFormContainer blockquote span.theComment {font-style:italic;font-size:12px;font-weight:normal;color:#000;padding:0 4px;}
 	div.k2ReportCommentFormContainer form label {display:block;font-weight:bold;}
 	div.k2ReportCommentFormContainer form input,
 	div.k2ReportCommentFormContainer form textarea {display:block;border:1px solid #ddd;font-size:12px;padding:2px;margin:0 0 8px 0;width:474px;}
@@ -400,12 +400,12 @@ div.catItemView {padding:4px;} /* this is the item container for this view - we 
 	div.catItemIsFeatured {} /* Attach a class for each featured item */
 
 span.catItemEditLink {float:right;display:block;padding:4px 0;margin:0;width:120px;text-align:right;}
-span.catItemEditLink a {padding:2px 12px;border:1px solid #ccc;background:#eee;text-decoration:none;font-size:11px;font-weight:normal;font-family:Arial, Helvetica, sans-serif;}
+span.catItemEditLink a {padding:2px 12px;border:1px solid #ccc;background:#eee;text-decoration:none;font-size:11px;font-weight:normal;}
 span.catItemEditLink a:hover {background:#ffffcc;}
 
 div.catItemHeader {}
 	div.catItemHeader span.catItemDateCreated {color:#999;font-size:11px;}
-	div.catItemHeader h3.catItemTitle {font-family:Georgia, "Times New Roman", Times, serif;font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
+	div.catItemHeader h3.catItemTitle {font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
 	div.catItemHeader h3.catItemTitle span {}
 	div.catItemHeader h3.catItemTitle span sup {font-size:12px;color:#CF1919;text-decoration:none;} /* superscript */
 	div.catItemHeader span.catItemAuthor {display:block;padding:0;margin:0;}
@@ -506,12 +506,12 @@ div.userItemIsFeatured {} /* Attach a class for each featured item */
 div.userItemViewUnpublished {opacity:0.9;border:4px dashed #ccc;background:#fffff2;padding:8px;margin:8px 0;}
 
 span.userItemEditLink {float:right;display:block;padding:4px 0;margin:0;width:120px;text-align:right;}
-	span.userItemEditLink a {padding:2px 12px;border:1px solid #ccc;background:#eee;text-decoration:none;font-size:11px;font-weight:normal;font-family:Arial, Helvetica, sans-serif;}
+	span.userItemEditLink a {padding:2px 12px;border:1px solid #ccc;background:#eee;text-decoration:none;font-size:11px;font-weight:normal;}
 	span.userItemEditLink a:hover {background:#ffffcc;}
 
 div.userItemHeader {}
 	div.userItemHeader span.userItemDateCreated {color:#999;font-size:11px;}
-	div.userItemHeader h3.userItemTitle {font-family:Georgia, "Times New Roman", Times, serif;font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
+	div.userItemHeader h3.userItemTitle {font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
 	div.userItemHeader h3.userItemTitle span sup {font-size:12px;color:#CF1919;text-decoration:none;} /* "Unpublished" presented in superscript */
 
 div.userItemBody {padding:8px 0;margin:0;}
@@ -559,7 +559,7 @@ div.tagItemView {border-bottom:1px dotted #ccc;padding:8px 0;margin:0 0 16px 0;}
 
 div.tagItemHeader {}
 	div.tagItemHeader span.tagItemDateCreated {color:#999;font-size:11px;}
-	div.tagItemHeader h2.tagItemTitle {font-family:Georgia, "Times New Roman", Times, serif;font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
+	div.tagItemHeader h2.tagItemTitle {font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
 
 div.tagItemBody {padding:8px 0;margin:0;}
 
@@ -569,7 +569,7 @@ div.tagItemImageBlock {padding:0;margin:0;float:left;}
 
 div.tagItemIntroText {font-size:inherit;font-weight:normal;line-height:inherit;padding:4px 0 12px 0;}
 	div.tagItemIntroText img {}
-
+	
 	div.tagItemExtraFields {}
 		div.tagItemExtraFields h4 {}
 		div.tagItemExtraFields ul {}
@@ -599,7 +599,7 @@ div.genericItemView {border-bottom:1px dotted #ccc;padding:8px 0;margin:0 0 16px
 
 div.genericItemHeader {}
 	div.genericItemHeader span.genericItemDateCreated {color:#999;font-size:11px;}
-	div.genericItemHeader h2.genericItemTitle {font-family:Georgia, "Times New Roman", Times, serif;font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
+	div.genericItemHeader h2.genericItemTitle {font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
 
 div.genericItemBody {padding:8px 0;margin:0;}
 
@@ -609,7 +609,7 @@ div.genericItemImageBlock {padding:0;margin:0;float:left;}
 
 div.genericItemIntroText {font-size:inherit;font-weight:normal;line-height:inherit;padding:4px 0 12px 0;}
 	div.genericItemIntroText img {}
-
+	
 	div.genericItemExtraFields {}
 		div.genericItemExtraFields h4 {}
 		div.genericItemExtraFields ul {}
@@ -666,7 +666,7 @@ div.latestItemList {padding:0 8px 8px 0;}
 div.latestItemView {} /* this is the item container for this view */
 
 div.latestItemHeader {}
-	div.latestItemHeader h3.latestItemTitle {font-family:Georgia, "Times New Roman", Times, serif;font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
+	div.latestItemHeader h3.latestItemTitle {font-size:24px;font-weight:normal;line-height:110%;padding:10px 0 4px 0;margin:0;}
 
 span.latestItemDateCreated {color:#999;font-size:11px;}
 
@@ -707,7 +707,7 @@ div.latestItemReadMore {display:inline;}
 	div.latestItemReadMore a:hover {}
 
 /* Items presented in a list */
-h2.latestItemTitleList {font-size:14px;padding:2px 0;margin:8px 0 2px 0;font-family:Arial, Helvetica, sans-serif;border-bottom:1px dotted #ccc;line-height:normal;}
+h2.latestItemTitleList {font-size:14px;padding:2px 0;margin:8px 0 2px 0;border-bottom:1px dotted #ccc;line-height:normal;}
 
 
 
@@ -975,7 +975,7 @@ div.k2SearchBlock div.k2LiveSearchResults {display:none;background:#fff;position
 	div.k2SearchBlock div.k2LiveSearchResults ul.liveSearchResults li {border:none;margin:0;padding:0;}
 	div.k2SearchBlock div.k2LiveSearchResults ul.liveSearchResults li a {display:block;padding:1px 2px;border-top:1px dotted #eee;}
 	div.k2SearchBlock div.k2LiveSearchResults ul.liveSearchResults li a:hover {background:#fffff0;}
-
+	
 /* --- Tag Cloud --- */
 div.k2TagCloudBlock {padding:8px 0;}
 div.k2TagCloudBlock a {padding:4px;float:left;display:block;}
