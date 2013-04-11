@@ -1,0 +1,70 @@
+
+/*k2 cat image mosaic creativeprogramming (pdv style) */
+.pdv .subCategoryImage img {
+    border: 1px solid #DDD;
+    width: 100%; 
+    /* centra l'immagine verticalmente nel suo viewport */
+    position: absolute;
+    top:0px;
+    bottom:0px;
+    margin:auto;
+    /* end centra l'immagine verticalmente nel suo viewport */
+
+}
+
+.pdv .subCategoryImage{
+    float:left;
+
+}
+
+
+.pdv .creative_subCategory {
+    text-align: center;
+    position: relative; 
+    width: 100%; /* for IE 6 */
+    height: 220px;
+    overflow:hidden !important;
+    background: rgb(0, 0, 0); /* fallback color */
+
+
+}
+
+
+
+
+.pdv .creative_subCategory h2 { 
+    position: absolute; 
+    top: 130px; 
+
+
+    width: 100%; 
+}
+
+.pdv .creative_subCategory h2 span a { 
+    transition: all .7s;
+    -ms-transition: all .7s; /* Firefox 4 */
+    -moz-transition: all .7s; /* Firefox 4 */
+    -webkit-transition: all .7s; /* Safari and Chrome */
+    -o-transition: all .7s; /* Opera */
+    color: rgba(255, 255, 255, 0.7) !important; 
+    background: rgb(255, 255, 255); /* fallback color */
+    text-align: left;
+    letter-spacing: -1px;  
+    background: rgb(0, 0, 0); /* fallback color */
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px; 
+}
+
+.pdv .creative_subCategory:hover h2 span a  {
+    left: -30px !important;
+    font-size: 120%;
+    background: rgb(0, 0, 0); /* fallback color */
+    background: rgba(0, 0, 0, 0.7);
+
+}
+
+.pdv .subCategory h2 span { 
+
+}
+
+/*end k2 cat image mosaic creativeprogramming (pdv style) */
