@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1950 2013-03-11 17:22:33Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1953 2013-04-02 16:34:59Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -155,6 +155,7 @@ class K2ViewItems extends K2View
 		$filter_trash_options[] = JHTML::_('select.option', 1, JText::_('K2_TRASHED'));
 		$lists['trash'] = JHTML::_('select.genericlist', $filter_trash_options, 'filter_trash', '', 'value', 'text', $filter_trash);
 
+		require_once JPATH_ADMINISTRATOR.'/components/com_k2/models/categories.php';
 		$categoriesModel = K2Model::getInstance('Categories', 'K2Model');
 		$categories_option[] = JHTML::_('select.option', 0, JText::_('K2_SELECT_CATEGORY'));
 		$categories = $categoriesModel->categoriesTree(NULL, true, false);

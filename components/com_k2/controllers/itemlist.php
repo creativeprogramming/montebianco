@@ -40,8 +40,8 @@ class K2ControllerItemlist extends K2Controller
                 }
                 $urlparams['task'] = $task;  
 
-		$urlparams['limit'] = 'UINT';
-		$urlparams['limitstart'] = 'UINT';
+			$urlparams['limit'] = 'UINT';
+			$urlparams['limitstart'] = 'UINT';
 		
 		parent::display($cache, $urlparams);
 	}

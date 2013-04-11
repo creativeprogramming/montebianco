@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: items.php 1936 2013-03-07 15:12:27Z lefteris.kavadas $
+ * @version		$Id: items.php 1952 2013-04-01 11:25:31Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -249,11 +249,7 @@ class K2ModelItems extends K2Model
 		}
 		JPluginHelper::importPlugin('finder');
 		$dispatcher = JDispatcher::getInstance();
-		$dispatcher->trigger('onFinderChangeState', array(
-			'com_k2.item',
-			$cid,
-			1
-		));
+		$dispatcher->trigger('onFinderChangeState', array('com_k2.item', $cid, 1));
 		$cache = JFactory::getCache('com_k2');
 		$cache->clean();
 		$mainframe->redirect('index.php?option=com_k2&view=items');
@@ -272,11 +268,7 @@ class K2ModelItems extends K2Model
 		}
 		JPluginHelper::importPlugin('finder');
 		$dispatcher = JDispatcher::getInstance();
-		$dispatcher->trigger('onFinderChangeState', array(
-			'com_k2.item',
-			$cid,
-			0
-		));
+		$dispatcher->trigger('onFinderChangeState', array('com_k2.item', $cid, 0));
 		$cache = JFactory::getCache('com_k2');
 		$cache->clean();
 		$mainframe->redirect('index.php?option=com_k2&view=items');
@@ -586,9 +578,18 @@ class K2ModelItems extends K2Model
 			//Target gallery
 			if ($sourceGalleryTag)
 			{
-				$row->gallery = '{gallery}'.$row->id.'{/gallery}';
-				if (JFolder::exists($sourceGallery))
-					JFolder::copy($sourceGallery, JPATH_ROOT.DS.'media'.DS.'k2'.DS.'galleries'.DS.$row->id);
+				if (JString::strpos($sourceGalleryTag, 'http://'))
+				{
+					$row->gallery = $sourceGalleryTag;
+				}
+				else
+				{
+					$row->gallery = '{gallery}'.$row->id.'{/gallery}';
+					if (JFolder::exists($sourceGallery))
+					{
+						JFolder::copy($sourceGallery, JPATH_ROOT.DS.'media'.DS.'k2'.DS.'galleries'.DS.$row->id);
+					}
+				}
 			}
 
 			//Target video
@@ -766,30 +767,8 @@ class K2ModelItems extends K2Model
 			$videotype = $matches[1][0];
 			$videofile = $matches[2][0];
 
-			$videoExtensions = array(
-				'flv',
-				'mp4',
-				'ogv',
-				'webm',
-				'f4v',
-				'm4v',
-				'3gp',
-				'3g2',
-				'mov',
-				'mpeg',
-				'mpg',
-				'avi',
-				'wmv',
-				'divx',
-				'swf'
-			);
-			$audioExtensions = array(
-				'mp3',
-				'aac',
-				'mp4',
-				'ogg',
-				'wma'
-			);
+			$videoExtensions = array('flv', 'mp4', 'ogv', 'webm', 'f4v', 'm4v', '3gp', '3g2', 'mov', 'mpeg', 'mpg', 'avi', 'wmv', 'divx', 'swf');
+			$audioExtensions = array('mp3', 'aac', 'mp4', 'ogg', 'wma');
 
 			if (in_array($videotype, $videoExtensions) || in_array($videotype, $audioExtensions))
 			{
@@ -832,10 +811,7 @@ class K2ModelItems extends K2Model
 
 			$row->delete($id);
 
-			$dispatcher->trigger('onFinderAfterDelete', array(
-				'com_k2.item',
-				$row
-			));
+			$dispatcher->trigger('onFinderAfterDelete', array('com_k2.item', $row));
 		}
 		$cache = JFactory::getCache('com_k2');
 		$cache->clean();

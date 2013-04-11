@@ -5,9 +5,9 @@
 	<creationDate>March 30th, 2013</creationDate>
 	<authorEmail>info@creativeprogramming.it</authorEmail>
 	<authorUrl>www.creativeprogramming.it</authorUrl>
-	<version>2.6.5</version>
+	<version>2.6.6</version>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<description>Thank you for installing Montebianco, a creativeprogramming.it maintained version of K2 by JoomlaWorks, the powerful content extension for Joomla!</description>
+	<description>Thank you for installing K2 by JoomlaWorks, the powerful content extension for Joomla!</description>
 	<installfile>install.k2.php</installfile>
 	<uninstallfile>uninstall.k2.php</uninstallfile>
 	<scriptfile>script.k2.php</scriptfile>
@@ -24,7 +24,7 @@
 		</sql>
 	</uninstall>
 	<updateservers>
-		<server type="extension" priority="1" name="Montebianco Updates">https://raw.github.com/creativeprogramming/montebianco/master/update_server/update.xml</server>
+		<server type="extension" priority="1" name="K2 Updates">http://getk2.org/update.xml</server>
 	</updateservers>
 	<files folder="components/com_k2">
 		<folder>controllers</folder>

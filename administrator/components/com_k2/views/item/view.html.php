@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1920 2013-02-11 19:07:41Z joomlaworks $
+ * @version		$Id: view.html.php 1958 2013-04-07 19:00:04Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -175,6 +175,7 @@ class K2ViewItem extends K2View
         if (!$item->id)
             $item->catid = $mainframe->getUserStateFromRequest('com_k2itemsfilter_category', 'catid', 0, 'int');
 
+		require_once JPATH_ADMINISTRATOR.'/components/com_k2/models/categories.php';
         $categoriesModel = K2Model::getInstance('Categories', 'K2Model');
         $categories = $categoriesModel->categoriesTree();
         $lists['catid'] = JHTML::_('select.genericlist', $categories, 'catid', 'class="inputbox"', 'value', 'text', $item->catid);
@@ -500,7 +501,7 @@ class K2ViewItem extends K2View
         }
         $this->assignRef('aceAclFlag', $aceAclFlag);
 
-        //SIG PRO v3 integration
+        // SIG PRO v3 integration
         if (JPluginHelper::isEnabled('k2', 'jw_sigpro'))
         {
             $sigPro = true;

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1931 2013-02-15 13:47:21Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1954 2013-04-02 16:36:23Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -115,6 +115,7 @@ class K2ViewComments extends K2View
 		$filter_state_options[] = JHTML::_('select.option', 0, JText::_('K2_UNPUBLISHED'));
 		$lists['state'] = JHTML::_('select.genericlist', $filter_state_options, 'filter_state', '', 'value', 'text', $filter_state);
 
+		require_once JPATH_ADMINISTRATOR.'/components/com_k2/models/categories.php';
 		$categoriesModel = K2Model::getInstance('Categories', 'K2Model');
 		$categories_option[] = JHTML::_('select.option', 0, JText::_('K2_SELECT_CATEGORY'));
 		$categories = $categoriesModel->categoriesTree(null, true, false);
