@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="component" version="1.5" method="upgrade">
-	<name>COM_MONTEBIANCO</name>
+	<name>COM_K2</name>
 	<author>Creativeprogramming (forked from JoomlaWorks Ltd GPL Project)</author>
 	<creationDate>March 30th, 2013</creationDate>
 	<authorEmail>info@creativeprogramming.it</authorEmail>
