@@ -76,7 +76,10 @@ span.siteRoot {display:none;}
 
 /* --- ReCaptcha --- */
 .recaptchatable .recaptcha_image_cell,
-#recaptcha_table {background-color:#fff !important;}
+#recaptcha_table {
+    overflow: hidden;
+    max-width: 100% !important;
+    background-color:#fff !important;}
 #recaptcha_table {border-color: #ccc !important;}
 #recaptcha_response_field {border-color: #ccc !important;background-color:#fff !important;}
 
