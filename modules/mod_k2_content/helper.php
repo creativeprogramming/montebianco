@@ -470,26 +470,26 @@ class modK2ContentHelper
 					{
 						//K2 plugins
 						JPluginHelper::importPlugin('k2');
-						$results = $dispatcher->trigger('onK2BeforeDisplay', array(&$item, &$params, $limitstart));
+						$results = $dispatcher->trigger('onK2BeforeDisplay', array($item, $params, $limitstart));
 						$item->event->K2BeforeDisplay = trim(implode("\n", $results));
 
-						$results = $dispatcher->trigger('onK2AfterDisplay', array(&$item, &$params, $limitstart));
+						$results = $dispatcher->trigger('onK2AfterDisplay', array($item, $params, $limitstart));
 						$item->event->K2AfterDisplay = trim(implode("\n", $results));
 
-						$results = $dispatcher->trigger('onK2AfterDisplayTitle', array(&$item, &$params, $limitstart));
+						$results = $dispatcher->trigger('onK2AfterDisplayTitle', array($item, $params, $limitstart));
 						$item->event->K2AfterDisplayTitle = trim(implode("\n", $results));
 
-						$results = $dispatcher->trigger('onK2BeforeDisplayContent', array(&$item, &$params, $limitstart));
+						$results = $dispatcher->trigger('onK2BeforeDisplayContent', array($item, $params, $limitstart));
 						$item->event->K2BeforeDisplayContent = trim(implode("\n", $results));
 
-						$results = $dispatcher->trigger('onK2AfterDisplayContent', array(&$item, &$params, $limitstart));
+						$results = $dispatcher->trigger('onK2AfterDisplayContent', array($item, $params, $limitstart));
 						$item->event->K2AfterDisplayContent = trim(implode("\n", $results));
 
-						$dispatcher->trigger('onK2PrepareContent', array(&$item, &$params, $limitstart));
+						$dispatcher->trigger('onK2PrepareContent', array($item, $params, $limitstart));
 
 						if ($params->get('itemCommentsCounter'))
 						{
-							$results = $dispatcher->trigger('onK2CommentsCounter', array(&$item, &$params, $limitstart));
+							$results = $dispatcher->trigger('onK2CommentsCounter', array($item, $params, $limitstart));
 							$item->event->K2CommentsCounter = trim(implode("\n", $results));
 						}
 
