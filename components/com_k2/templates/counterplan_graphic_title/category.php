@@ -1,22 +1,33 @@
 <?php
 /**
- * @version		$Id: category.php 1527 2012-03-12 12:45:31Z lefteris.kavadas $
- * @package		K2
- * @author		JoomlaWorks http://www.joomlaworks.net
- * @copyright	Copyright (c) 2006 - 2012 JoomlaWorks Ltd. All rights reserved.
- * @license		GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+ * @version		$Id: category.php 
+ * @package		K2 Montebianco
+ * @author		creativeprogramming.it http://www.creativeprogramming.it
+ * @copyright	Copyright (c) 2013 creativeprogramming.it. All rights reserved.
  */
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 $doc =& JFactory::getDocument();
-$doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/category.css' );
+$doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/commons.css' );
+$doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/category.css' );
+$doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/item.css' );
+$doc->addScript( '/components/com_k2/templates/counterplan_graphic_title/js/jquery-timeago/jquery.timeago.js' );
+$doc->addScript( '/components/com_k2/templates/counterplan_graphic_title/js/jquery-timeago/locales/jquery.timeago.it.js' );
+$doc->addScript( '/components/com_k2/templates/counterplan_graphic_title/js/pagination/creativeprogramming.it_pagination.awesomeness.js' );
+
 ?>
+<script type="text/javascript">
+   jQuery(document).ready(function() {
+     jQuery("time.thedate").timeago();
+   });
+</script>
+
 
 <!-- Start K2 Category Layout -->
 
 <div id="system"> <!-- for yoo css e.g pagination -->
-<div id="k2Container" class="pdv itemListView<?php if($this->params->get('pageclass_sfx')) echo ' '.$this->params->get('pageclass_sfx'); ?>">
+<div id="k2Container" class="creativeprogrammingTimeline creativeCategory itemListView<?php if($this->params->get('pageclass_sfx')) echo ' '.$this->params->get('pageclass_sfx'); ?>">
 
 	<?php if($this->params->get('show_page_title')): ?>
 	<!-- Page title -->
@@ -54,17 +65,21 @@ $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/cat
 
 			<?php if($this->params->get('catImage') && $this->category->image): ?>
 			<!-- Category image -->
-			<img alt="<?php echo K2HelperUtilities::cleanHtml($this->category->name); ?>" src="<?php echo $this->category->image; ?>" style="width:<?php echo $this->params->get('catImageWidth'); ?>px; height:auto;" />
+                        <img alt="<?php echo K2HelperUtilities::cleanHtml($this->category->name); ?>" src="<?php echo str_replace("_M.jpg", "_XL.jpg", $this->category->image); ?>" style="width:<?php echo $this->params->get('catImageWidth'); ?>px; height:auto;" />
 			<?php endif; ?>
 
 			<?php if($this->params->get('catTitle')): ?>
 			<!-- Category title -->
-			<h2><?php echo $this->category->name; ?><?php if($this->params->get('catTitleItemCounter')) echo ' ('.$this->pagination->total.')'; ?></h2>
+			<h2 class="creativeCatTitle">
+                            <span class="creativeCatSpan">
+                            <?php echo $this->category->name; ?><?php if($this->params->get('catTitleItemCounter')) echo ' ('.$this->pagination->total.')'; ?>
+                            </span>
+                        </h2>
 			<?php endif; ?>
 
 			<?php if($this->params->get('catDescription')): ?>
 			<!-- Category description -->
-			<p><?php echo $this->category->description; ?></p>
+			<div class="catDescription"><?php echo $this->category->description; ?></div>
 			<?php endif; ?>
 
 			<!-- K2 Plugins: K2CategoryDisplay -->
@@ -76,8 +91,8 @@ $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/cat
 
 		<?php if($this->params->get('subCategories') && isset($this->subCategories) && count($this->subCategories)): ?>
 		<!-- Subcategories -->
-		<div class="itemListSubCategories">
-			<h3><?php echo JText::_('K2_CHILDREN_CATEGORIES'); ?></h3>
+		<div title="Click to show/hide subcategories" onClick="jQuery('.itemListSubCategories').toggleClass('activated');" class="itemListSubCategories">
+			<h3 class="subcatActivator">&gt; <?php echo JText::_('K2_CHILDREN_CATEGORIES'); ?></h3>
 
                         <?php
                         $flexiwidthrules="";
@@ -159,10 +174,17 @@ $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/cat
 
 
 
-	<?php if(isset($this->primary)): ?>
+	<?php 
+        if(!isset($this->primary) || count($this->primary)==0){
+            echo "Error: this template requires you use only 'primary' articles check menu item or category configuration";
+        }
+        
+        if(isset($this->primary)): ?>
 	<!-- Item list -->
 	<ul class="cbp_tmtimeline">
-
+                <li 
+                    data-page="<?php echo $this->pagination->pagesCurrent;?>" 
+                    class="creativeprogrammingAwesomePageStart creativeprogrammingAwesomePageStartOf_<?php echo $this->pagination->pagesCurrent;?>"></li>
 		<!-- Leading items -->
 		<?php if(isset($this->primary) && count($this->primary)): ?>
 		<!-- Primary items -->
@@ -187,17 +209,48 @@ $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/cat
 		
 			<?php endforeach; ?>
 		<?php endif; ?>
+                <li  data-page="<?php echo $this->pagination->pagesCurrent;?>" 
+                    class="creativeprogrammingAwesomePageEnd creativeprogrammingAwesomePageEndOf_<?php echo $this->pagination->pagesCurrent;?>"></li>
         </ul>
-		
-
-	<!-- Pagination -->
-	<?php if(count($this->pagination->getPagesLinks())): ?>
-	<div class="k2Pagination">
+       	<!-- Pagination -->
+	<?php 
+        //print_r($this->pagination);
+        if(count($this->pagination->getPagesLinks())): ?>
+         <!-- Creativeprogramming.it Pagination awesomeness -->
+        <div class="creativeprogramming_it_awesome_pagination_slider"
+             data-min="1"
+             data-max="<?php echo $this->pagination->pagesTotal;?>"
+             data-current="<?php echo $this->pagination->pagesCurrent;?>"
+             data-elementsperpage="<?php echo $this->pagination->limit;?>"
+             >
+        </div>
+         Pag. <b><span class="creativeprogramming_it_awesome_pagination_currentpage"></span></b>/<?php echo $this->pagination->pagesTotal;?>
+        
+       
+       <?php 
+         $debugPagination=false;
+         $keepSEOCrawlersLinks=true;
+         if ($debugPagination){ //set true to debug plain old pagination
+           print_r($this->pagination);
+         }
+         if ($keepSEOCrawlersLinks){
+	?>
+         <!-- max-height,opcacity, and float left should ensure this block is hidden to the user
+         but it should be considered valid and visible by crawlers
+         TODO: test also screen readers and add some 
+         aria attrs https://mikewest.org/2010/02/an-accessible-pagination-pattern 
+         free screen reader win: http://www.nvaccess.org/ -->
+         <div 
+            style="max-height:0px!important; opacity: 0; float:left;"
+            class="k2Pagination">
 		<?php if($this->params->get('catPagination')) echo $this->pagination->getPagesLinks(); ?>
 		<div class="clr"></div>
 		<?php if($this->params->get('catPaginationResults')) echo $this->pagination->getPagesCounter(); ?>
-	</div>
+	</div> 
+       <?php 
+       }?>
 	<?php endif; ?>
+        
 
 	<?php endif; ?>
 </div>

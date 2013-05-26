@@ -7,7 +7,9 @@
 
 // no direct access
 defined('_JEXEC') or die;
-
+$doc =& JFactory::getDocument();
+$doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/commons.css' );
+$doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/item.css' );
 // Code used to generate the page elements
 $params = $this->item->params;
 $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($params->get('pageclass_sfx')) ? ' '.$params->get('pageclass_sfx') : ''; 
@@ -16,101 +18,9 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 <?php if(JRequest::getInt('print')==1): ?>
 <a class="itemPrintThisPage" rel="nofollow" href="#" onclick="window.print(); return false;"> <?php echo JText::_('K2_PRINT_THIS_PAGE'); ?> </a>
 <?php endif; ?>
-<style type="text/css" scoped="true">
-    
-/* k2 image title */
-.titleoverimg ul{
 
-list-style: none;
-margin: 0;
-padding: 0;
-
-}
-
-.titleoverimg ul li{
-display: inline-block;
-color: #999;
-float: left;
-font-size: 12px;
-margin-right: 16px;
-}
-
-article.counterplan{
-    position: relative;
-}
-
-.articleabitoverimg{
-      z-index: 9;
-    position: relative; 
-top: -9em; 
-background: white;
-background: rgba(255,255,255,.98);
--o-box-shadow: 0 0 5px #888;
--moz-box-shadow: 0 0 5px #888;
--ms-box-shadow: 0 0 5px #888;
--webkit-box-shadow: 0 0 5px #888;
--khtml-box-shadow: 0 0 5px #888;
-box-shadow: 0 0 5px #888;
-
- -o-transition: all .4s linear;
-  -moz-transition: all .4s linear;
-  -ms-transition: all .4s linear;
-  -webkit-transition: all .4s linear;
-  -khtml-transition: all .4s linear;
-  transition: all .6s linear;
-  
-  padding: 3px;
-}
-
-
-.titleoverimg{
-    width: 100%;
-   z-index: 9;
-position: absolute; 
-top: 2em; 
-background: white;
-background: rgba(255,255,255,.85);
--o-box-shadow: 0 0 5px #888;
--moz-box-shadow: 0 0 5px #888;
--ms-box-shadow: 0 0 5px #888;
--webkit-box-shadow: 0 0 5px #888;
--khtml-box-shadow: 0 0 5px #888;
-box-shadow: 0 0 5px #888;
-
- -o-transition: all .4s linear;
-  -moz-transition: all .4s linear;
-  -ms-transition: all .4s linear;
-  -webkit-transition: all .4s linear;
-  -khtml-transition: all .4s linear;
-  transition: all .6s linear;
-
-}
-
-itemImage img{
-    -o-box-shadow: 0 0 5px #888;
--moz-box-shadow: 0 0 5px #888;
--ms-box-shadow: 0 0 5px #888;
--webkit-box-shadow: 0 0 5px #888;
--khtml-box-shadow: 0 0 5px #888;
-box-shadow: 0 0 5px #888;
-}
-
-#showImage:target .articleabitoverimg{
-    top: 0em !important; 
-}
-#showImage:target .titleoverimg{
-    top: -1em !important;
-}
-itemImage:hover + .articleabitoverimg{
-    top: 0em; 
-}
-/*
-.titleoverimg:hover{
-  top:0em;
-}*/
-/* end k2 image title */
-</style>
-<article id="k2Container" class="counterplan itemView<?php echo $k2ContainerClasses; ?>"> <?php echo $this->item->event->BeforeDisplay; ?> <?php echo $this->item->event->K2BeforeDisplay; ?>
+<div id="k2Container" class="counterplan itemView<?php echo $k2ContainerClasses; ?>"> <?php echo $this->item->event->BeforeDisplay; ?> <?php echo $this->item->event->K2BeforeDisplay; ?>
+    <article>
 			<?php if(isset($this->item->editLink)): ?>
 			<a class="itemEditLink modal" rel="{handler:'iframe',size:{x:990,y:550}}" href="<?php echo $this->item->editLink; ?>"><?php echo JText::_('K2_EDIT_ITEM'); ?></a>
 			<?php endif; ?>
@@ -165,7 +75,7 @@ itemImage:hover + .articleabitoverimg{
 						<?php endif; ?>
 			</header>
 			<?php echo $this->item->event->AfterDisplayTitle; ?> <?php echo $this->item->event->K2AfterDisplayTitle; ?>
-			<?php if($params->get('itemImage') && !empty($this->item->image)): ?>
+			<?php if($params->get('itemImage') && !empty($this->item->image)){ ?>
 		        <a  class="itemImage" href="#showImage" title="<?php echo JText::_('K2_CLICK_TO_PREVIEW_IMAGE'); ?>"> <img src="<?php echo $this->item->image; ?>" alt="<?php if(!empty($this->item->image_caption)) echo K2HelperUtilities::cleanHtml($this->item->image_caption); else echo K2HelperUtilities::cleanHtml($this->item->title); ?>" style="width:100%; height:auto;" /> </a>
 			<?php if($params->get('itemImageMainCaption') && !empty($this->item->image_caption)): ?>
 			<span class="itemImageCaption"><?php echo $this->item->image_caption; ?></span>
@@ -173,7 +83,12 @@ itemImage:hover + .articleabitoverimg{
 			<?php if($params->get('itemImageMainCredits') && !empty($this->item->image_credits)): ?>
 			<span class="itemImageCredits"><?php echo $this->item->image_credits; ?></span>
 			<?php endif; ?>
-			<?php endif; ?>
+			<?php }else{ //no image
+                            ?>
+                         <a  class="itemImage" href="#showImage" title="<?php echo JText::_('K2_CLICK_TO_PREVIEW_IMAGE'); ?>"> 
+                         </a>
+                        <?php
+                        } ?>
 		<?php if(!empty($this->item->fulltext)): ?>
 			<div class="itemBody articleabitoverimg">
 						<?php echo $this->item->event->BeforeDisplayContent; ?> <?php echo $this->item->event->K2BeforeDisplayContent; ?>
@@ -493,3 +408,4 @@ itemImage:hover + .articleabitoverimg{
 			<a class="itemBackToTop" href="<?php echo $this->item->link; ?>#"> <?php echo JText::_('K2_BACK_TO_TOP'); ?> </a>
 			<?php endif; ?>
 </article>
+</div>
