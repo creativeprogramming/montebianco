@@ -9,7 +9,6 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-
 ?>
 
 <!-- Start K2 Category Layout -->
