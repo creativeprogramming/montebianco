@@ -97,17 +97,7 @@ class plgSystemK2 extends JPlugin
 		{
 
 			jimport('joomla.filesystem.file');
-
-                        //fontawesome
-                         
-                        //adding font-awesome to joomla  TODO: check if montebianco is configured to add it
-                        $document = JFactory::getDocument();
-                        $document->addStyleSheet(JURI::root(true).'/components/com_k2/images/fontawesome/css/font-awesome.min.css?v=2.6.6');
-
-    
-                        
-                        
-			// k2.css
+       			// k2.css
 			if (JFile::exists(JPATH_SITE.DS.'templates'.DS.$mainframe->getTemplate().DS.'css'.DS.'k2.css'))
 				$document->addStyleSheet(JURI::root(true).'/templates/'.$mainframe->getTemplate().'/css/k2.css');
 			else
