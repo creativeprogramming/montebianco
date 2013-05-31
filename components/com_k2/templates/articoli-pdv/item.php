@@ -237,17 +237,20 @@ defined('_JEXEC') or die('Restricted access');
 	  <div class="clr"></div>
   </div>
   <script>
-  window.addEvent("load",function(){
-   try{
-       console.debug("scrollingtovideo");
-   }catch(e){
-       
-   } 
-   setTimeout(function(){
-   jQuery('html,body').animate({scrollTop: jQuery(".itemVideo").offset().top},'slow'); 
-   //turnOffTheLights();
-   },1500);
-  });
+  var scrollToVideoEnabled=false; //enrico request june 2013
+  if (scrollToVideoEnabled){
+        window.addEvent("load",function(){
+         try{
+             console.debug("scrollingtovideo");
+         }catch(e){
+
+         } 
+         setTimeout(function(){
+         jQuery('html,body').animate({scrollTop: jQuery(".itemVideo").offset().top},'slow'); 
+         //turnOffTheLights();
+         },1500);
+        });
+  }
   </script>
   <?php endif; ?>
           

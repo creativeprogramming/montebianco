@@ -12,16 +12,9 @@ $doc =& JFactory::getDocument();
 $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/commons.css' );
 $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/category.css' );
 $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/item.css' );
-$doc->addScript( '/components/com_k2/templates/counterplan_graphic_title/js/jquery-timeago/jquery.timeago.js' );
-$doc->addScript( '/components/com_k2/templates/counterplan_graphic_title/js/jquery-timeago/locales/jquery.timeago.it.js' );
-$doc->addScript( '/components/com_k2/templates/counterplan_graphic_title/js/pagination/creativeprogramming.it_pagination.awesomeness.js' );
 
 ?>
-<script type="text/javascript">
-   jQuery(document).ready(function() {
-     jQuery("time.thedate").timeago();
-   });
-</script>
+
 
 
 <!-- Start K2 Category Layout -->
