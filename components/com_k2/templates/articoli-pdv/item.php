@@ -211,8 +211,6 @@ defined('_JEXEC') or die('Restricted access');
   <a name="itemVideoAnchor" id="itemVideoAnchor"></a>
 
   <div class="itemVideoBlock">
-  	<h3><?php echo JText::_('K2_MEDIA'); ?></h3>
-
 		<?php if($this->item->videoType=='embedded'): ?>
 		<div class="itemVideoEmbedded">
 			<?php echo $this->item->video; ?>
