@@ -455,8 +455,9 @@ defined('_JEXEC') or die('Restricted access');
 		<ul class="zebra">
 			<?php foreach($this->relatedItems as $key=>$item): ?>
 			<li class="<?php echo ($key%2) ? "odd" : "even"; ?>">
-			
-                          <style>
+			             
+                            
+                            <style type="text/css" scoped>
                             .relatediconholder {  /* keep higher image to 35px height (crop view) */ 
 overflow: hidden;
 max-width: 35px !important;
