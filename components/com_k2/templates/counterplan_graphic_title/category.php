@@ -12,9 +12,9 @@ $doc =& JFactory::getDocument();
 $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/commons.css' );
 $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/category.css' );
 $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/item.css' );
-$doc->addScript( '/plugins/system/asynk2/assets/js/jquery-timeago/jquery.timeago.js' );
-$doc->addScript( '/plugins/system/asynk2/assets/js/jquery-timeago/locales/jquery.timeago.it.js' );
-$doc->addScript( '/plugins/system/asynk2/assets/js/pagination/creativeprogramming.it_pagination.awesomeness.js' );
+$doc->addScript( '/plugins/k2/asynk2/assets/js/jquery-timeago/jquery.timeago.js' );
+$doc->addScript( '/plugins/k2/asynk2/assets/js/jquery-timeago/locales/jquery.timeago.it.js' );
+$doc->addScript( '/plugins/k2/asynk2/assets/js/pagination/creativeprogramming.it_pagination.awesomeness.js' );
 
 ?>
 <script type="text/javascript">
