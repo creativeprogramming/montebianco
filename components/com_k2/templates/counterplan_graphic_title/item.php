@@ -18,8 +18,8 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 <?php if(JRequest::getInt('print')==1): ?>
 <a class="itemPrintThisPage" rel="nofollow" href="#" onclick="window.print(); return false;"> <?php echo JText::_('K2_PRINT_THIS_PAGE'); ?> </a>
 <?php endif; ?>
-
-<div id="k2Container" class="counterplan itemView<?php echo $k2ContainerClasses; ?>"> <?php echo $this->item->event->BeforeDisplay; ?> <?php echo $this->item->event->K2BeforeDisplay; ?>
+<!-- creativeshowim: temp start non collapsed mode, waiting for a cleaner layout -->
+<div id="k2Container" class="creativeshowim counterplan itemView<?php echo $k2ContainerClasses; ?>"> <?php echo $this->item->event->BeforeDisplay; ?> <?php echo $this->item->event->K2BeforeDisplay; ?>
     <article>
 			<?php if(isset($this->item->editLink)): ?>
 			<a class="itemEditLink modal" rel="{handler:'iframe',size:{x:990,y:550}}" href="<?php echo $this->item->editLink; ?>"><?php echo JText::_('K2_EDIT_ITEM'); ?></a>
@@ -76,16 +76,21 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 			</header>
 			<?php echo $this->item->event->AfterDisplayTitle; ?> <?php echo $this->item->event->K2AfterDisplayTitle; ?>
 			<?php if($params->get('itemImage') && !empty($this->item->image)){ ?>
-		        <a  class="itemImage" href="#showImage" title="<?php echo JText::_('K2_CLICK_TO_PREVIEW_IMAGE'); ?>"> <img src="<?php echo $this->item->image; ?>" alt="<?php if(!empty($this->item->image_caption)) echo K2HelperUtilities::cleanHtml($this->item->image_caption); else echo K2HelperUtilities::cleanHtml($this->item->title); ?>" style="width:100%; height:auto;" /> </a>
-			<?php if($params->get('itemImageMainCaption') && !empty($this->item->image_caption)): ?>
-			<span class="itemImageCaption"><?php echo $this->item->image_caption; ?></span>
-			<?php endif; ?>
+                        <span style="cursor: ns-resize;"  onClick="jQuery('#k2Container').toggleClass('creativeshowim');" id="showImage" class="itemImage" 
+                       title="<?php echo JText::_('K2_CLICK_TO_PREVIEW_IMAGE'); ?>"> 
+                            <img src="<?php echo $this->item->image; ?>" 
+                                 alt="<?php if(!empty($this->item->image_caption)) 
+                                     echo K2HelperUtilities::cleanHtml($this->item->image_caption); 
+                                 else echo K2HelperUtilities::cleanHtml($this->item->title); ?>" 
+                                 style="width:100%; height:auto;" />
+                        </span>
+			<?php if($params->get('itemImageMainCaption') && !empty($this->item->image_caption)): ?>	<?php endif; ?>
 			<?php if($params->get('itemImageMainCredits') && !empty($this->item->image_credits)): ?>
 			<span class="itemImageCredits"><?php echo $this->item->image_credits; ?></span>
 			<?php endif; ?>
 			<?php }else{ //no image
                             ?>
-                         <a  class="itemImage" href="#showImage" title="<?php echo JText::_('K2_CLICK_TO_PREVIEW_IMAGE'); ?>"> 
+                             <a  onClick="jQuery('#k2Container').toggleClass('creativeshowim');" class="itemImage" href="#showImage" title="<?php echo JText::_('K2_CLICK_TO_PREVIEW_IMAGE'); ?>"> 
                          </a>
                         <?php
                         } ?>

@@ -15,15 +15,7 @@ $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css
 $doc->addScript( '/plugins/k2/asynk2/assets/js/jquery-timeago/jquery.timeago.js' );
 $doc->addScript( '/plugins/k2/asynk2/assets/js/jquery-timeago/locales/jquery.timeago.it.js' );
 $doc->addScript( '/plugins/k2/asynk2/assets/js/pagination/creativeprogramming.it_pagination.awesomeness.js' );
-
 ?>
-<script type="text/javascript">
-   jQuery(document).ready(function() {
-     jQuery("time.thedate").timeago();
-   });
-</script>
-
-
 <!-- Start K2 Category Layout -->
 
 <div id="system"> <!-- for yoo css e.g pagination -->

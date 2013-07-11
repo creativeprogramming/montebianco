@@ -83,11 +83,16 @@ box-shadow: 0 0 5px #888;
 box-shadow: 0 0 5px #888;
 
 }
-
-.itemImage{
-    min-height: 250px !important; /* for empty images dude */
+/* for empty images in titleoverimage layout dude 
+.counterplan .itemImage{
+    min-height: 250px !important; 
 }
 
+.creativeshowim .itemImage{
+    min-height: 0px !important; 
+}
+commented because it's not needed anymore and doesn't scale down well to tiny mobile devices
+*/
 #showImage:target .articleabitoverimg{
     top: 0em !important; 
 }
