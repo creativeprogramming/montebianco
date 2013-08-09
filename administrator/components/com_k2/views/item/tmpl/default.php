@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 1944 2013-03-08 19:14:17Z joomlaworks $
+ * @version		$Id: default.php 1900 2013-02-08 19:28:51Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -12,6 +12,13 @@ defined('_JEXEC') or die;
 
 $document = JFactory::getDocument();
 $document->addScriptDeclaration("
+    try{
+    window.alert=function(a){
+           try{ console.error(a);}catch(console){};  // to avoid Calendar.setup:Nothing to setup (no fields found).  Please check your code 
+        };
+    }catch(noAlertOverride){
+    
+    };
 	Joomla.submitbutton = function(pressbutton){
 		if (pressbutton == 'cancel') {
 			submitform( pressbutton );
@@ -83,6 +90,22 @@ $document->addScriptDeclaration("
 									</td>
 									<td class="adminK2RightCol">
 										<input class="text_area k2TitleAliasBox" type="text" name="alias" id="alias" maxlength="250" value="<?php echo $this->row->alias; ?>" />
+									</td>
+								</tr>
+                                                                <tr>
+									<td class="adminK2LeftCol">
+										<label for="region">Regione (opzionale)</label>
+									</td>
+									<td class="adminK2RightCol">
+													<?php echo $this->lists['regions']; ?>
+                                                                        </td>
+								</tr>
+                                                                <tr>
+									<td class="adminK2LeftCol">
+										<label for="address">Indirizzo o Città (opzionale. es. "Roma" o "Via Labicana 25, Roma")</label>
+									</td>
+									<td class="adminK2RightCol">
+										<input class="text_area k2AddressBox" type="text" name="address" id="address" maxlength="250" value="<?php echo $this->row->address; ?>" />
 									</td>
 								</tr>
 								<tr>
@@ -308,7 +331,7 @@ $document->addScriptDeclaration("
 											<td valign="top">
 												<?php if($this->sigPro): ?>
 												<a class="modal" rel="{handler: 'iframe', size: {x: 940, y: 560}}" href="index.php?option=com_sigpro&view=galleries&task=create&newFolder=<?php echo $this->sigProFolder; ?>&type=k2&tmpl=component"><?php echo JText::_('K2_COM_BE_ITEM_SIGPRO_UPLOAD'); ?></a> <i>(<?php echo JText::_('K2_COM_BE_ITEM_SIGPRO_UPLOAD_NOTE'); ?>)</i>
-												<input name="sigProFolder" type="hidden" value="<?php echo $this->sigProFolder; ?>" />
+                                                <input name="sigProFolder" type="hidden" value="<?php echo $this->sigProFolder; ?>" />
 												<br />
 												<br />
 												<?php echo JText::_('K2_OR'); ?>
@@ -836,7 +859,35 @@ $document->addScriptDeclaration("
 												<?php echo $this->lists['createdCalendar']; ?>
 											</td>
 										</tr>
+                                                                            
+                                                                                
+                                                                                <tr>
+											<td align="right" class="key">
+												Data fittizia ordinamento articoli
+											</td>
+											<td class="k2ItemFormDateField">
+												<?php echo $this->lists['ordering_date']; ?>
+											</td>
+										</tr>
+                                                                  
+                                                                                  <tr>
+											<td align="right" class="key">
+												Data inizio evento
+											</td>
+											<td class="k2ItemFormDateField">
+												<?php echo $this->lists['event_start_date']; ?>
+											</td>
+										</tr>
 										<tr>
+											<td align="right" class="key">
+												Data fine evento
+											</td>
+											<td class="k2ItemFormDateField">
+												<?php echo $this->lists['event_end_date']; ?>
+											</td>
+										</tr>
+                                                                                
+                                                                                <tr>
 											<td align="right" class="key">
 												<?php echo JText::_('K2_START_PUBLISHING'); ?>
 											</td>
@@ -844,6 +895,8 @@ $document->addScriptDeclaration("
 												<?php echo $this->lists['publish_up']; ?>
 											</td>
 										</tr>
+                                                                                
+                                                                                
 										<tr>
 											<td align="right" class="key">
 												<?php echo JText::_('K2_FINISH_PUBLISHING'); ?>

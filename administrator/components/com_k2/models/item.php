@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: item.php 1996 2013-07-05 18:06:33Z lefteris.kavadas $
+ * @version     $Id: item.php 1854 2013-02-06 18:05:06Z lefteris.kavadas $
  * @package     K2
  * @author      JoomlaWorks http://www.joomlaworks.net
  * @copyright   Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -119,7 +119,47 @@ class K2ModelItem extends K2Model
 		$tzoffset = K2_JVERSION == '30' ? $config->get('offset') : $config->getValue('config.offset');
 		$date = JFactory::getDate($row->created, $tzoffset);
 		$row->created = K2_JVERSION == '15' ? $date->toMySQL() : $date->toSql();
+  /**
+        * creativeprogramming addon start
+        */ 
+              	if (trim($row->ordering_date) == JText::_('K2_NEVER') || trim($row->ordering_date) == '')
+		{
+			$row->ordering_date = $row->created;
+		}else{  
+                    if ($row->ordering_date && strlen(trim($row->ordering_date)) <= 10)
+                    {
+                            $row->ordering_date .= ' 00:00:00';
+                    }
 
+                    $config = JFactory::getConfig();
+                    $tzoffset = K2_JVERSION == '30' ? $config->get('offset') : $config->getValue('config.offset');
+                    $date = JFactory::getDate($row->ordering_date, $tzoffset);
+                    $row->ordering_date = K2_JVERSION == '15' ? $date->toMySQL() : $date->toSql();
+                }
+                /*
+                if ($row->event_start_date && strlen(trim($row->event_start_date)) <= 10)
+		{
+			$row->event_start_date .= ' 00:00:00';
+		}
+
+		$config = JFactory::getConfig();
+		$tzoffset = K2_JVERSION == '30' ? $config->get('offset') : $config->getValue('config.offset');
+		$date = JFactory::getDate($row->event_start_date, $tzoffset);
+		$row->event_start_date = K2_JVERSION == '15' ? $date->toMySQL() : $date->toSql();
+
+                   if ($row->event_end_date && strlen(trim($row->event_end_date)) <= 10)
+		{
+			$row->event_end_date .= ' 00:00:00';
+		}
+
+		$config = JFactory::getConfig();
+		$tzoffset = K2_JVERSION == '30' ? $config->get('offset') : $config->getValue('config.offset');
+		$date = JFactory::getDate($row->event_end_date, $tzoffset);
+		$row->event_end_date = K2_JVERSION == '15' ? $date->toMySQL() : $date->toSql();
+ */
+             /**
+        * creativeprogramming addon end
+        */     
 		if (strlen(trim($row->publish_up)) <= 10)
 		{
 			$row->publish_up .= ' 00:00:00';
@@ -521,7 +561,7 @@ class K2ModelItem extends K2Model
 							$basename = JFile::stripExt($existingFileName);
 							$newFilename = $basename.'_'.time().'.'.$ext;
 							$dest = $savepath.DS.$newFilename;
-						}
+					}
 						JFile::copy($src, $dest);
 						$attachment = JTable::getInstance('K2Attachment', 'Table');
 						$attachment->itemID = $row->id;
@@ -532,28 +572,28 @@ class K2ModelItem extends K2Model
 					}
 					else
 					{
-						$handle = new Upload($file);
-						if ($handle->uploaded)
-						{
-							$handle->file_auto_rename = true;
-							$handle->allowed[] = 'application/x-zip';
-							$handle->allowed[] = 'application/download';
-							$handle->Process($savepath);
-							$filename = $handle->file_dst_name;
+					$handle = new Upload($file);
+					if ($handle->uploaded)
+					{
+						$handle->file_auto_rename = true;
+						$handle->allowed[] = 'application/x-zip';
+						$handle->allowed[] = 'application/download';
+						$handle->Process($savepath);
+						$filename = $handle->file_dst_name;
 							$handle->Clean();
-							$attachment = JTable::getInstance('K2Attachment', 'Table');
-							$attachment->itemID = $row->id;
-							$attachment->filename = $filename;
-							$attachment->title = ( empty($attachments_titles[$counter])) ? $filename : $attachments_titles[$counter];
-							$attachment->titleAttribute = ( empty($attachments_title_attributes[$counter])) ? $filename : $attachments_title_attributes[$counter];
-							$attachment->store();
-						}
-						else
-						{
-							$mainframe->redirect('index.php?option=com_k2&view=items', $handle->error, 'error');
-						}
-
+						$attachment = JTable::getInstance('K2Attachment', 'Table');
+						$attachment->itemID = $row->id;
+						$attachment->filename = $filename;
+						$attachment->title = ( empty($attachments_titles[$counter])) ? $filename : $attachments_titles[$counter];
+						$attachment->titleAttribute = ( empty($attachments_title_attributes[$counter])) ? $filename : $attachments_title_attributes[$counter];
+						$attachment->store();
 					}
+					else
+					{
+						$mainframe->redirect('index.php?option=com_k2&view=items', $handle->error, 'error');
+					}
+
+				}
 
 				}
 
@@ -1155,7 +1195,42 @@ class K2ModelItem extends K2Model
 		$row->delete($id);
 		$mainframe->close();
 	}
+        
+        
+        
+       /**
+        * creativeprogramming addon
+        * @param type $itemID
+        * @return type
+        */ 
+        function getAvailableRegions($itemID = NULL)
+	{
 
+		$db = JFactory::getDBO();
+		$query = "SELECT * FROM #__k2_region_presets as regions";
+		$db->setQuery($query);
+		$rows = $db->loadObjectList();
+		return $rows;
+	}
+          /**
+        * creativeprogramming addon
+        * @param type $itemID
+        * @return type
+        */ 
+           function getCurrentRegion($itemID = NULL)
+	{
+
+		$db = JFactory::getDBO();
+		$query = "SELECT item.region FROM #__k2_item as item WHERE item.id=".(int)$itemID;
+		$db->setQuery($query);
+		$rows = $db->loadObjectList();
+		return $rows;
+	}
+  /**
+        * creativeprogramming addon
+        * @param type $itemID
+        * @return type
+        */ 
 	function getAvailableTags($itemID = NULL)
 	{
 
@@ -1167,7 +1242,7 @@ class K2ModelItem extends K2Model
 		$rows = $db->loadObjectList();
 		return $rows;
 	}
-
+        
 	function getCurrentTags($itemID)
 	{
 

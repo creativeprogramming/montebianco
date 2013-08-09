@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1983 2013-05-31 13:36:41Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1900 2013-02-08 19:28:51Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -85,6 +85,7 @@ class K2ViewItem extends K2View
             $now = K2_JVERSION == '15' ? $date->toMySQL() : $date->toSql();
             $item->created = $now;
             $item->publish_up = $item->created;
+            $item->ordering_date = $item->created; /* creativeprogramming */
         }
 
         $lists = array();
@@ -105,10 +106,47 @@ class K2ViewItem extends K2View
         {
             $item->publish_down = JHTML::_('date', $item->publish_down, $dateFormat);
         }
+        
+         /* creativeprogramming start */
+           if ($item->ordering_date == $db->getNullDate())
+        {
+            $item->ordering_date = '';
+        }
+        else
+        {
+            $item->ordering_date = JHTML::_('date', $item->ordering_date, $dateFormat);
+        }
 
+        
+        
+             if ($item->event_start_date == $db->getNullDate())
+        {
+            $item->event_start_date = '';
+        }
+        else
+        {
+            $item->event_start_date = JHTML::_('date', $item->event_start_date, $dateFormat);
+        }
+
+        
+        
+             if ($item->event_end_date == $db->getNullDate())
+        {
+            $item->event_end_date = '';
+        }
+        else
+        {
+            $item->event_end_date = JHTML::_('date', $item->event_end_date, $dateFormat);
+        }
+      /* creativeprogramming end */
         // Set up calendars
         $created = JHTML::_('date', $item->created, $dateFormat);
         $lists['createdCalendar'] = JHTML::_('calendar', $created, 'created', 'created');
+              /* creativeprogramming start */
+        $lists['ordering_date'] = JHTML::_('calendar', $item->ordering_date, 'ordering_date', 'ordering_date');
+        $lists['event_start_date'] = JHTML::_('calendar', $item->event_start_date, 'event_start_date', 'event_start_date');
+        $lists['event_end_date'] = JHTML::_('calendar', $item->event_end_date, 'event_end_date', 'event_end_date');
+            /* creativeprogramming end */
         $lists['publish_up'] = JHTML::_('calendar', $item->publish_up, 'publish_up', 'publish_up');
         $lists['publish_down'] = JHTML::_('calendar', $item->publish_down, 'publish_down', 'publish_down');
 
@@ -410,7 +448,23 @@ class K2ViewItem extends K2View
         {
             $lists['selectedTags'] = '<select size="10" multiple="multiple" id="selectedTags" name="selectedTags[]"></select>';
         }
+        
+              /* creativeprogramming start */
+         $regions = $model->getAvailableRegions($item->id);
+        // $lists['regions'] = JHTML::_('select.genericlist', $regions, 'region', 'multiple="multiple" size="10" ', 'id', 'name');
+//die(print_r($regions,true));
+        $regoptions=array();
+        
+        $regoptions[] = JHTML::_('select.option', '', '---'); 
+        foreach($regions as $tupla) :
+		## Create $value ##
+		//$options[] = JHTML::_('select.option', $key, $value);
+            $regoptions[] = JHTML::_('select.option', $tupla->name, $tupla->name);   
+	endforeach;
 
+        $lists['regions'] = JHTML::_('select.genericlist', $regoptions, 'region', 'class="nomatter"', 'value', 'text', $item->region);
+      
+        /* creativeprogramming end */
         $lists['metadata'] = class_exists('JParameter') ? new JParameter($item->metadata) : new JRegistry($item->metadata);
 
         $date = JFactory::getDate($item->modified);
