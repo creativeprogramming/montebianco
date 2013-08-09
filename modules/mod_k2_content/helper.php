@@ -95,22 +95,9 @@ class modK2ContentHelper
 		{
 			$query = "SELECT i.*, CASE WHEN i.modified = 0 THEN i.created ELSE i.modified END as lastChanged, c.name AS categoryname,c.id AS categoryid, c.alias AS categoryalias, c.params AS categoryparams";
 
-			if ($ordering == 'best'){
-                          /* importance of rating count! 
-                           * (ln(x-0.95))/3 is the bonus 
-                           * function with the logaritmic function 
-                           * when we have only 1 vote we have a 
-                           * penalization of 1 point for the avg, 
-                           * 2 votes 0 penality, and with the increasing 
-                           * of the num of vote we have a 
-                           * logaritmic increasing of the bonus to the avg
-                           * 
-                           */
-                            	$query .= ", (r.rating_sum / r.rating_count ) 
-                                    + ( (LN(r.rating_count-0.999)) / 7 ) AS rating";
-                           
-                        }
-                        
+			if ($ordering == 'best')
+				$query .= ", (r.rating_sum/r.rating_count) AS rating";
+
 			if ($ordering == 'comments')
 				$query .= ", COUNT(comments.id) AS numOfComments";
 
@@ -119,10 +106,6 @@ class modK2ContentHelper
 			if ($ordering == 'best')
 				$query .= " LEFT JOIN #__k2_rating r ON r.itemID = i.id";
 
-                        if ($ordering == 'komento_comments')
-				$query .= " LEFT JOIN #__komento_comments comments ON comments.cid = i.id";
-                        
-                        
 			if ($ordering == 'comments')
 				$query .= " LEFT JOIN #__k2_comments comments ON comments.itemID = i.id";
 
@@ -487,26 +470,26 @@ class modK2ContentHelper
 					{
 						//K2 plugins
 						JPluginHelper::importPlugin('k2');
-						$results = $dispatcher->trigger('onK2BeforeDisplay', array($item, $params, $limitstart));
+						$results = $dispatcher->trigger('onK2BeforeDisplay', array(&$item, &$params, $limitstart));
 						$item->event->K2BeforeDisplay = trim(implode("\n", $results));
 
-						$results = $dispatcher->trigger('onK2AfterDisplay', array($item, $params, $limitstart));
+						$results = $dispatcher->trigger('onK2AfterDisplay', array(&$item, &$params, $limitstart));
 						$item->event->K2AfterDisplay = trim(implode("\n", $results));
 
-						$results = $dispatcher->trigger('onK2AfterDisplayTitle', array($item, $params, $limitstart));
+						$results = $dispatcher->trigger('onK2AfterDisplayTitle', array(&$item, &$params, $limitstart));
 						$item->event->K2AfterDisplayTitle = trim(implode("\n", $results));
 
-						$results = $dispatcher->trigger('onK2BeforeDisplayContent', array($item, $params, $limitstart));
+						$results = $dispatcher->trigger('onK2BeforeDisplayContent', array(&$item, &$params, $limitstart));
 						$item->event->K2BeforeDisplayContent = trim(implode("\n", $results));
 
-						$results = $dispatcher->trigger('onK2AfterDisplayContent', array($item, $params, $limitstart));
+						$results = $dispatcher->trigger('onK2AfterDisplayContent', array(&$item, &$params, $limitstart));
 						$item->event->K2AfterDisplayContent = trim(implode("\n", $results));
 
-						$dispatcher->trigger('onK2PrepareContent', array($item, $params, $limitstart));
+						$dispatcher->trigger('onK2PrepareContent', array(&$item, &$params, $limitstart));
 
 						if ($params->get('itemCommentsCounter'))
 						{
-							$results = $dispatcher->trigger('onK2CommentsCounter', array($item, $params, $limitstart));
+							$results = $dispatcher->trigger('onK2CommentsCounter', array(&$item, &$params, $limitstart));
 							$item->event->K2CommentsCounter = trim(implode("\n", $results));
 						}
 
