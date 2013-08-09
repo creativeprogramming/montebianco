@@ -402,6 +402,9 @@ class K2ViewItemlist extends K2View
         }
 
         $feed = JRoute::_($link);
+        
+        $feed = "http://cloud.feedly.com/#subscription/feed/".JURI::base().$feed;
+        
         $this->assignRef('feed', $feed);
 
         //Assign data

@@ -363,8 +363,8 @@ class K2ModelItem extends K2Model
 				if (K2_JVERSION == '15')
 				{
 					$dispatcher->trigger('onPrepareContent', array(
-						&$item,
-						&$params,
+						$item,
+						$params,
 						$limitstart
 					));
 				}
@@ -372,8 +372,8 @@ class K2ModelItem extends K2Model
 				{
 					$dispatcher->trigger('onContentPrepare', array(
 						'com_k2.'.$view,
-						&$item,
-						&$params,
+						$item,
+						$params,
 						$limitstart
 					));
 				}                $item->description .= '<div class="K2FeedVideo">'.$item->text.'</div>';
@@ -391,8 +391,8 @@ class K2ModelItem extends K2Model
 			if (K2_JVERSION == '15')
 			{
 				$dispatcher->trigger('onPrepareContent', array(
-					&$item,
-					&$params,
+					$item,
+					$params,
 					$limitstart
 				));
 			}
@@ -400,8 +400,8 @@ class K2ModelItem extends K2Model
 			{
 				$dispatcher->trigger('onContentPrepare', array(
 					'com_k2.'.$view,
-					&$item,
-					&$params,
+					$item,
+					$params,
 					$limitstart
 				));
 			}
@@ -540,8 +540,8 @@ class K2ModelItem extends K2Model
 				if (K2_JVERSION == '15')
 				{
 					$dispatcher->trigger('onPrepareContent', array(
-						&$item,
-						&$params,
+						$item,
+						$params,
 						$limitstart
 					));
 				}
@@ -549,8 +549,8 @@ class K2ModelItem extends K2Model
 				{
 					$dispatcher->trigger('onContentPrepare', array(
 						'com_k2.'.$view,
-						&$item,
-						&$params,
+						$item,
+						$params,
 						$limitstart
 					));
 				}
@@ -602,8 +602,8 @@ class K2ModelItem extends K2Model
 				if (K2_JVERSION == '15')
 				{
 					$dispatcher->trigger('onPrepareContent', array(
-						&$item,
-						&$params,
+						$item,
+						$params,
 						$limitstart
 					));
 				}
@@ -611,8 +611,8 @@ class K2ModelItem extends K2Model
 				{
 					$dispatcher->trigger('onContentPrepare', array(
 						'com_k2.'.$view,
-						&$item,
-						&$params,
+						$item,
+						$params,
 						$limitstart
 					));
 				}
@@ -676,31 +676,31 @@ class K2ModelItem extends K2Model
 
 			$dispatcher->trigger('onContentPrepare', array(
 				'com_k2.'.$view,
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 
 			$results = $dispatcher->trigger('onContentAfterTitle', array(
 				'com_k2.'.$view,
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->AfterDisplayTitle = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onContentBeforeDisplay', array(
 				'com_k2.'.$view,
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->BeforeDisplayContent = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onContentAfterDisplay', array(
 				'com_k2.'.$view,
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->AfterDisplayContent = trim(implode("\n", $results));
@@ -709,43 +709,43 @@ class K2ModelItem extends K2Model
 		else
 		{
 			$results = $dispatcher->trigger('onBeforeDisplay', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->BeforeDisplay = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onAfterDisplay', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->AfterDisplay = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onAfterDisplayTitle', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->AfterDisplayTitle = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onBeforeDisplayContent', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->BeforeDisplayContent = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onAfterDisplayContent', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->AfterDisplayContent = trim(implode("\n", $results));
 
 			$dispatcher->trigger('onPrepareContent', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 
@@ -764,43 +764,43 @@ class K2ModelItem extends K2Model
 			JPluginHelper::importPlugin('k2');
 
 			$results = $dispatcher->trigger('onK2BeforeDisplay', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->K2BeforeDisplay = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onK2AfterDisplay', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->K2AfterDisplay = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onK2AfterDisplayTitle', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->K2AfterDisplayTitle = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onK2BeforeDisplayContent', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->K2BeforeDisplayContent = trim(implode("\n", $results));
 
 			$results = $dispatcher->trigger('onK2AfterDisplayContent', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 			$item->event->K2AfterDisplayContent = trim(implode("\n", $results));
 
 			$dispatcher->trigger('onK2PrepareContent', array(
-				&$item,
-				&$params,
+				$item,
+				$params,
 				$limitstart
 			));
 
@@ -830,22 +830,22 @@ class K2ModelItem extends K2Model
 						{
 							$dispatcher->trigger('onContentPrepare', array(
 								'com_k2.'.$view,
-								&$tmp,
-								&$params,
+								$tmp,
+								$params,
 								$limitstart
 							));
 						}
 						else
 						{
 							$dispatcher->trigger('onPrepareContent', array(
-								&$tmp,
-								&$params,
+								$tmp,
+								$params,
 								$limitstart
 							));
 						}
 						$dispatcher->trigger('onK2PrepareContent', array(
-							&$tmp,
-							&$params,
+							$tmp,
+							$params,
 							$limitstart
 						));
 						$extraField->value = $tmp->text;

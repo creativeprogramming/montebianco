@@ -1,0 +1,115 @@
+/* 
+    Document   : item
+    Created on : 21-mag-2013, 22.45.52
+    Author     : Gargiulo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+    
+/* k2 image title */
+.titleoverimg ul{
+
+list-style: none;
+margin: 0;
+padding: 0;
+
+}
+
+.titleoverimg ul li{
+display: inline-block;
+color: #999;
+float: left;
+font-size: 12px;
+margin-right: 16px;
+}
+
+article.counterplan{
+    position: relative;
+}
+
+.articleabitoverimg{
+      z-index: 9;
+    position: relative; 
+top: -9em; 
+background: white;
+background: rgba(255,255,255,.98);
+
+-o-box-shadow: 0 0 3px #888;
+-ms-box-shadow: 0 0 3px #888;
+-moz-box-shadow: 0 0 3px #888;
+-webkit-box-shadow: 0 0 3px #888;
+-khtml-box-shadow: 0 0 3px #888;
+box-shadow: 0 0 3px #888;
+
+ -o-transition: all .4s linear;
+  -moz-transition: all .4s linear;
+  -ms-transition: all .4s linear;
+  -webkit-transition: all .4s linear;
+  -khtml-transition: all .4s linear;
+  transition: all .6s linear;
+  
+  padding: 3px;
+}
+
+
+.titleoverimg{
+    width: 100%;
+   z-index: 9;
+position: absolute; 
+top: 2em; 
+background: white;
+background: rgba(255,255,255,.85);
+-o-box-shadow: 0 0 5px #888;
+-moz-box-shadow: 0 0 5px #888;
+-ms-box-shadow: 0 0 5px #888;
+-webkit-box-shadow: 0 0 5px #888;
+-khtml-box-shadow: 0 0 5px #888;
+box-shadow: 0 0 5px #888;
+
+ -o-transition: all .4s linear;
+  -moz-transition: all .4s linear;
+  -ms-transition: all .4s linear;
+  -webkit-transition: all .4s linear;
+  -khtml-transition: all .4s linear;
+  transition: all .6s linear;
+
+}
+
+.itemImage img{
+    -o-box-shadow: 0 0 5px #888;
+-moz-box-shadow: 0 0 5px #888;
+-ms-box-shadow: 0 0 5px #888;
+-webkit-box-shadow: 0 0 5px #888;
+-khtml-box-shadow: 0 0 5px #888;
+box-shadow: 0 0 5px #888;
+
+}
+/* for empty images in titleoverimage layout dude 
+.counterplan .itemImage{
+    min-height: 250px !important; 
+}
+
+.creativeshowim .itemImage{
+    min-height: 0px !important; 
+}
+commented because it's not needed anymore and doesn't scale down well to tiny mobile devices
+*/
+#showImage:target .articleabitoverimg{
+    top: 0em !important; 
+}
+#showImage:target .titleoverimg{
+    top: -1em !important;
+}
+
+/* 
+http://www.w3.org/TR/CSS2/selector.html
+E + F Matches any F element immediately preceded by a sibling element E.
+*/
+itemImage:hover + .articleabitoverimg{
+    top: 0em; 
+}
+/*
+.titleoverimg:hover{
+  top:0em;
+}*/
+/* end k2 image title */

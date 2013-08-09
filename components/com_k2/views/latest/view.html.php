@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1981 2013-05-22 15:38:17Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1924 2013-02-11 20:05:37Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -104,6 +104,7 @@ class K2ViewLatest extends K2View
                         $link = urldecode(K2HelperRoute::getCategoryRoute($category->id.':'.urlencode($category->alias)));
                         $category->link = JRoute::_($link);
                         $category->feed = JRoute::_($link.'&format=feed');
+                        $category->feed = "http://cloud.feedly.com/#subscription/feed/".JURI::base().$category->feed;
 
                         JRequest::setVar('view', 'itemlist');
                         JRequest::setVar('task', 'category');
@@ -190,7 +191,7 @@ class K2ViewLatest extends K2View
 
                         $link = K2HelperRoute::getUserRoute($userObject->id);
                         $userObject->link = JRoute::_($link);
-                        $userObject->feed = JRoute::_($link.'&format=feed');
+                        $userObject->feed = JRoute::_("http://cloud.feedly.com/#subscription/feed/".JURI::base().$link.'&format=feed');
                         $userObject->name = htmlspecialchars($userObject->name, ENT_QUOTES);
                         if ($limit)
                         {

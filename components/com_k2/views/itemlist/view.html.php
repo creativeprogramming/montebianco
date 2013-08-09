@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1990 2013-07-04 14:31:30Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1956 2013-04-04 13:40:22Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -621,6 +621,7 @@ class K2ViewItemlist extends K2View
 		}
 
 		$feed = JRoute::_($link);
+                $feed = "http://cloud.feedly.com/#subscription/feed/".JURI::base().$feed;
 		$this->assignRef('feed', $feed);
 
 		// Add head feed link

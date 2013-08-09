@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1992 2013-07-04 16:36:38Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1956 2013-04-04 13:40:22Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -130,17 +130,6 @@ class K2ViewItem extends K2View
 
 		// Set default image
 		K2HelperUtilities::setDefaultImage($item, $view);
-		
-		// Pass the old parameter to the view in order to avoid layout changes
-		if($params->get('antispam') == 'recaptcha' || $params->get('antispam') == 'both')
-		{
-			$params->set('recaptcha', true);
-			$item->params->set('recaptcha', true);
-		}
-		else {
-			$params->set('recaptcha', false);
-			$item->params->set('recaptcha', false);
-		}
 
 		// Comments
 		$item->event->K2CommentsCounter = '';
@@ -162,10 +151,9 @@ class K2ViewItem extends K2View
 				// Load reCAPTCHA script
 				if (!JRequest::getInt('print') && ($item->params->get('comments') == '1' || ($item->params->get('comments') == '2' && K2HelperPermissions::canAddComment($item->catid))))
 				{
-
-					if ($params->get('recaptcha') && ($user->guest || $params->get('recaptchaForRegistered', 1)))
+					if ($item->params->get('recaptcha') && $user->guest)
 					{
-						$document->addScript('https://www.google.com/recaptcha/api/js/recaptcha_ajax.js');
+						$document->addScript('http://api.recaptcha.net/js/recaptcha_ajax.js');
 						$js = '
 						function showRecaptcha(){
 							Recaptcha.create("'.$item->params->get('recaptcha_public_key').'", "recaptcha", {
@@ -214,16 +202,12 @@ class K2ViewItem extends K2View
 
 				$limit = $params->get('commentsLimit');
 				$comments = $model->getItemComments($item->id, $limitstart, $limit, $commentsPublished);
+				$pattern = "@\b(https?://)?(([0-9a-zA-Z_!~*'().&=+$%-]+:)?[0-9a-zA-Z_!~*'().&=+$%-]+\@)?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-zA-Z_!~*'()-]+\.)*([0-9a-zA-Z][0-9a-zA-Z-]{0,61})?[0-9a-zA-Z]\.[a-zA-Z]{2,6})(:[0-9]{1,4})?((/[0-9a-zA-Z_!~*'().;?:\@&=+$,%#-]+)*/?)@";
 
 				for ($i = 0; $i < sizeof($comments); $i++)
 				{
 					$comments[$i]->commentText = nl2br($comments[$i]->commentText);
-
-					// Convert URLs to links properly
-					$comments[$i]->commentText = preg_replace("/([^\w\/])(www\.[a-z0-9\-]+\.[a-z0-9\-]+)/i", "$1http://$2", $comments[$i]->commentText);
-					$comments[$i]->commentText = preg_replace("/([\w]+:\/\/[\w-?&;#~=\.\/\@]+[\w\/])/i", "<a target=\"_blank\" rel=\"nofollow\" href=\"$1\">$1</A>", $comments[$i]->commentText);
-					$comments[$i]->commentText = preg_replace("/([\w-?&;#~=\.\/]+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,3}|[0-9]{1,3})(\]?))/i", "<a href=\"mailto:$1\">$1</A>", $comments[$i]->commentText);
-
+					$comments[$i]->commentText = preg_replace($pattern, '<a target="_blank" rel="nofollow" href="\0">\0</a>', $comments[$i]->commentText);
 					$comments[$i]->userImage = K2HelperUtilities::getAvatar($comments[$i]->userID, $comments[$i]->commentEmail, $params->get('commenterImgWidth'));
 					if ($comments[$i]->userID > 0)
 					{
@@ -390,14 +374,15 @@ class K2ViewItem extends K2View
 		// Set metadata
 		if ($item->metadesc)
 		{
-			$document->setDescription((K2_JVERSION == '15') ? htmlspecialchars($item->metadesc, ENT_QUOTES, 'UTF-8') : $item->metadesc);
+			$document->setDescription($item->metadesc);
 		}
 		else
 		{
 			$metaDescItem = preg_replace("#{(.*?)}(.*?){/(.*?)}#s", '', $item->introtext.' '.$item->fulltext);
 			$metaDescItem = strip_tags($metaDescItem);
+			$metaDescItem = htmlspecialchars($metaDescItem, ENT_QUOTES, 'UTF-8');
 			$metaDescItem = K2HelperUtilities::characterLimit($metaDescItem, $params->get('metaDescLimit', 150));
-			$document->setDescription(K2_JVERSION == '15' ? $metaDescItem : html_entity_decode($metaDescItem));
+			$document->setDescription($metaDescItem);
 		}
 		if ($item->metakey)
 		{
@@ -446,7 +431,7 @@ class K2ViewItem extends K2View
 
 		if ($mainframe->getCfg('MetaTitle') == '1')
 		{
-			$document->setMetadata('title', $item->cleanTitle);
+			$document->setMetadata('title', $item->title);
 		}
 		if ($mainframe->getCfg('MetaAuthor') == '1' && isset($item->author->name))
 		{
@@ -466,8 +451,9 @@ class K2ViewItem extends K2View
 		// Set Facebook meta data
 		$document = JFactory::getDocument();
 		$uri = JURI::getInstance();
+       
 		$document->setMetaData('og:url', $uri->toString());
-		$document->setMetaData('og:title', (K2_JVERSION == '15') ? htmlspecialchars($document->getTitle(), ENT_QUOTES, 'UTF-8') : $document->getTitle());
+		$document->setMetaData('og:title', htmlspecialchars($document->getTitle(), ENT_QUOTES, 'UTF-8'));
 		$document->setMetaData('og:type', 'article');
 		$facebookImage = 'image'.$params->get('facebookImage', 'Small');
 		if ($item->$facebookImage)
@@ -480,7 +466,7 @@ class K2ViewItem extends K2View
 				$document->setMetaData('image', $image);
 			}
 		}
-		$document->setMetaData('og:description', strip_tags($document->getDescription()));
+		$document->setMetaData('og:description', htmlspecialchars(strip_tags($document->getDescription()), ENT_QUOTES, 'UTF-8'));
 
 		// Look for template files in component folders
 		$this->_addPath('template', JPATH_COMPONENT.DS.'templates');
