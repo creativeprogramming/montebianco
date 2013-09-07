@@ -391,8 +391,8 @@ class K2ModelItem extends K2Model
 			if (K2_JVERSION == '15')
 			{
 				$dispatcher->trigger('onPrepareContent', array(
-					$item,
-					$params,
+					&$item,
+					&$params,
 					$limitstart
 				));
 			}
