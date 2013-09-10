@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `#__k2_items` (
   `ordering_date` datetime NOT NULL,
   `event_start_date` datetime NOT NULL,
   `event_end_date` datetime NOT NULL,
+  `fbshares` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `item` (`published`,`publish_up`,`publish_down`,`trash`,`access`),
   KEY `catid` (`catid`),
@@ -129,6 +130,12 @@ CREATE TABLE IF NOT EXISTS `#__k2_items` (
   FULLTEXT KEY `search` (`title`,`introtext`,`fulltext`,`extra_fields_search`,`image_caption`,`image_credits`,`video_caption`,`video_credits`,`metadesc`,`metakey`),
   FULLTEXT KEY `title` (`title`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `#__k2_region_presets` (
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci$$
 
 CREATE TABLE IF NOT EXISTS `#__k2_rating` (
   `itemID` int(11) NOT NULL DEFAULT '0',
