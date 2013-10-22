@@ -62,7 +62,7 @@ $user = JFactory::getUser();
 		
 		<?php if (($this->params->get('userURL') && isset($this->user->profile->url) && $this->user->profile->url) || $this->params->get('userEmail')): ?>
 		<div class="userAdditionalInfo">
-			<?php  if ($this->params->get('userURL') && isset($this->user->profile->url) && $this->user->profile->url): ?>
+			<?php if ($this->params->get('userURL') && isset($this->user->profile->url) && $this->user->profile->url): ?>
 			<span class="userURL">
 				<?php echo JText::_('K2_WEBSITE_URL'); ?>: <a href="<?php echo $this->user->profile->url; ?>" target="_blank" rel="me"><?php echo $this->user->profile->url; ?></a>
 			</span>

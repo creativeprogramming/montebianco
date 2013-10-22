@@ -1,0 +1,36 @@
+body{
+    width: 100%;
+    max-width: 100% !important;
+}
+#gkPrintTop img{
+    width: 18%;
+}
+
+article time{
+display: inline !important;
+display: inline-block !important;
+}
+article .itemReads{
+    display:none;
+}
+
+article header ul{
+float: right !important;
+border: 1px dashed gray;
+padding: 2px;
+}
+
+article header ul li {
+color: rgb(153, 153, 153);
+float: left;
+font-size: 12px;
+margin-right: 16px;
+list-style: none !important;
+clear: both !important;
+}
+
+.itemImage {
+float: left !important;
+max-width: 39%;
+margin-right: 20px;
+}

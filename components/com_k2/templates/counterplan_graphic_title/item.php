@@ -20,12 +20,23 @@ function get_dpi($filename){
     return array(hexdec($x),hexdec($y));
 } 
 
-
 $doc =& JFactory::getDocument();
+
+$isPrintView= JFactory::getApplication()->input->get("print",0,"INT")===1;
+      
+echo "<!-- ispv: ".$isPrintView."-->";
+echo "<!-- ispv1: ".$_GET["print"]."-->";
+
+if($isPrintView){ 
+    $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/print.css' );
+}
+else{
+
 $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/commons.css' );
 $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css/item.css' );
 
 $doc->addScript( '/plugins/k2/asynk2/assets/js/imagesloaded.js' );
+} 
 // Code used to generate the page elements
 $params = $this->item->params;
 $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($params->get('pageclass_sfx')) ? ' '.$params->get('pageclass_sfx') : ''; 
@@ -33,10 +44,13 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 
 
 ?>
-<?php if(JRequest::getInt('print')==1): ?>
+<?php if ($isPrintView):
+$doc->setMetaData("robots", "noindex");    
+$doc->addScriptDeclaration("jQuery(document).ready(function(){window.print();})", "text/javascript");
+?>
 <a class="itemPrintThisPage" rel="nofollow" href="#" onclick="window.print(); return false;"> <?php echo JText::_('K2_PRINT_THIS_PAGE'); ?> </a>
 <?php endif; ?>
-<!-- creativeshowim: temp start non collapsed mode, waiting for a cleaner layout -->
+<!-- *creativeshowim: temp start non collapsed mode, waiting for a cleaner layout  -->
 <div id="k2Container" class="creativeshowim counterplan itemView<?php echo $k2ContainerClasses; ?>"> <?php echo $this->item->event->BeforeDisplay; ?> <?php echo $this->item->event->K2BeforeDisplay; ?>
     <article>
 			<?php if(isset($this->item->editLink)): ?>
@@ -58,19 +72,39 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 						</h1>
 						<?php endif; ?>
 						<ul>
-									<?php if($this->item->params->get('itemDateCreated')): ?>
+									
+                                                         <?php if($this->item->params->get('itemDateCreated')): ?>
 									<li class="itemDate">
+                                                                                 <i class="authoricon icon-clock"></i>
 												<time datetime="<?php echo JHtml::_('date', $this->item->created, JText::_(DATE_W3C)); ?>"> <?php echo JHTML::_('date', $this->item->created, JText::_('K2_DATE_FORMAT_LC2')); ?> </time>
 									</li>
-									<?php endif; ?>
+							 <?php endif; ?>
+                                                    
 									<?php if($params->get('itemAuthor')): ?>
-									<li class="itemAuthor"> <?php echo K2HelperUtilities::writtenBy($this->item->author->profile->gender); ?>&nbsp;
-												<?php if(empty($this->item->created_by_alias)): ?>
-												<a rel="author" href="<?php echo $this->item->author->link; ?>"><?php echo $this->item->author->name; ?></a>
-												<?php else: ?>
-												<?php echo $this->item->author->name; ?>
-												<?php endif; ?>
+									<li class="itemAuthor"> 
+                                                                           <!-- <i class="icon-pen"></i> -->
+                                                                            <i class="authoricon icon-pencil" alt="Author"></i>
+                                                                            <?php
+                                                                            //echo K2HelperUtilities::writtenBy($this->item->author->profile->gender); 
+                                                                            ?> 
+									    <?php if(empty($this->item->created_by_alias)): ?>
+									       <a rel="author" href="<?php echo $this->item->author->link; ?>"><?php echo $this->item->author->name; ?></a>
+								            <?php else: ?>
+								              <?php echo $this->item->author->name; ?>
+									    <?php endif; ?>
 									</li>
+                                                                        <?php endif; ?>
+                                                                        
+                                                                   
+                                                                        
+                                                                        <?php if($params->get('itemHits')): ?>
+                                                                        <li class="itemReads">
+                                                                            <i class="icon-eye"></i>
+                                                                            <span class="itemHits"><?php 
+                                                                            echo " - ";
+                                                                            //echo $this->item->hits;
+                                                                            ?></span>
+                                                                        </li>
 									<?php endif; ?>
 									<?php if($params->get('itemCommentsAnchor') && $params->get('itemComments') && ( ($params->get('comments') == '2' && !$this->user->guest) || ($params->get('comments') == '1')) ): ?>
 									<li>
@@ -282,7 +316,7 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 			<?php if(($params->get('itemDateModified') && intval($this->item->modified)!=0)): ?>
 			<div class="itemBottom">
 						<?php if($params->get('itemDateModified') && intval($this->item->modified) != 0 && $this->item->created != $this->item->modified): ?>
-						<small class="itemDateModified"> <?php echo JText::_('K2_LAST_MODIFIED_ON') . JHTML::_('date', $this->item->modified, JText::_('K2_DATE_FORMAT_LC2')); ?> </small>
+						<small class="itemDateModified"> <?php echo JText::_('K2_LAST_MODIFIED_ON')." " . JHTML::_('date', $this->item->modified, JText::_('K2_DATE_FORMAT_LC2')); ?> </small>
 						<?php endif; ?>
 			</div>
 			<?php endif; ?>
@@ -305,9 +339,9 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 									<?php endforeach; ?>
 						</ul>
 			</div>
-			
+			<?php endif; ?>
                         		<?php
-			if(
+			if( 
 				$params->get('itemPrintButton') ||
 				$params->get('itemEmailButton') ||
 				$params->get('itemSocialButton') ||
@@ -319,8 +353,9 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 				$params->get('itemRating')
 			) :
 		?>
-			<aside class="itemAsideInfo">
-						<ul>
+			<aside class="itemAsideInfo" style="width:100%;">
+						<!-- disabled 
+                                                <ul>
 									<?php if($params->get('itemCategory')): ?>
 									<li class="itemCategory"> <span><?php echo JText::_('K2_PUBLISHED_IN'); ?></span> <a href="<?php echo $this->item->category->link; ?>"><?php echo $this->item->category->name; ?></a> </li>
 									<?php endif; ?>
@@ -342,8 +377,8 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 									<?php if($params->get('itemImageGalleryAnchor') && !empty($this->item->gallery)): ?>
 									<li class="itemGallery"> <a class="k2Anchor" href="<?php echo $this->item->link; ?>#itemImageGalleryAnchor"><?php echo JText::_('K2_IMAGE_GALLERY'); ?></a> </li>
 									<?php endif; ?>
-						</ul>
-						<?php if($params->get('itemRating')): ?>
+						</ul> -->
+						<?php if(false &&  $params->get('itemRating')): ?>
 						<div class="itemRatingBlock">
 									<span><?php echo JText::_('K2_RATE_THIS_ITEM'); ?></span>
 									<div class="itemRatingForm">
@@ -361,7 +396,7 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 									</div>
 						</div>
 						<?php endif; ?>
-						<?php if($params->get('itemTags') && count($this->item->tags)): ?>
+						<?php if( $params->get('itemTags') && count($this->item->tags)): ?>
 						<div class="itemTagsBlock">
 									<p><?php echo JText::_('K2_TAGGED_UNDER'); ?></p>
 									<?php foreach ($this->item->tags as $tag): ?>
@@ -369,7 +404,14 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 									<?php endforeach; ?>
 						</div>
 						<?php endif; ?>
-						<?php if($params->get('itemAuthorBlock') && empty($this->item->created_by_alias)): ?>
+                                                
+                                           
+                                                <?php if($params->get('itemPrintButton') && !$isPrintView): ?>
+							<a target="_blank" rel="nofollow" href="#printme" onclick="window.open('<?php echo $this->item->printLink; ?>','printWindow','width=900,height=600,location=no,menubar=no,resizable=yes,scrollbars=yes'); return false;"><i class="icon-print"></i> <?php echo JText::_('K2_PRINT'); ?> </a> 
+						<?php endif; ?>
+                                                              
+                                                                        
+                            	                <?php if($params->get('itemAuthorBlock') && empty($this->item->created_by_alias)): ?>
 						<div class="itemAuthBlock">
 									<?php if($params->get('itemAuthorImage') && !empty($this->item->author->avatar)):?>
 									<img src="<?php echo $this->item->author->avatar; ?>" alt="<?php echo K2HelperUtilities::cleanHtml($this->item->author->name); ?>" />
@@ -387,7 +429,7 @@ $k2ContainerClasses = (($this->item->featured) ? ' itemIsFeatured' : '') . ($par
 			</aside>
 			<?php endif; ?>
                         
-                        <?php endif; ?>
+    
 			<?php echo $this->item->event->AfterDisplayContent; ?> <?php echo $this->item->event->K2AfterDisplayContent; ?>
 			<?php if(
 		$params->get('itemTwitterButton',1) || 

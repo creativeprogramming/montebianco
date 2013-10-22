@@ -312,17 +312,23 @@ class K2HelperUtilities
 			$application = JFactory::getApplication();
 			if ($application->isSite())
 			{
+                         
 				$params = $application->getParams($option);
+              
 			}
 			else
 			{
 				$params = JComponentHelper::getParams($option);
+                             
 			}
 		}
 		else
 		{
+                    
 			$params = JComponentHelper::getParams($option);
+                          
 		}
+               
 		return $params;
 
 	}
