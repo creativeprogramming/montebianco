@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: helper.php 1998 2013-07-08 11:18:43Z lefteris.kavadas $
+ * @version		$Id: helper.php 1899 2013-02-08 18:57:03Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -317,11 +317,6 @@ class modK2ToolsHelper
 
 		$db->setQuery($query);
 		$IDs = K2_JVERSION == '30' ? $db->loadColumn() : $db->loadResultArray();
-
-		if (!is_array($IDs) || !count($IDs))
-		{
-			return array();
-		}
 
 		$query = "SELECT tag.name, tag.id
         FROM #__k2_tags as tag
@@ -1088,10 +1083,8 @@ class MyCalendar extends Calendar
 
 	var $category = null;
 
-	function getDateLink($day, $month, $year)
-	{
-
-		$mainframe = JFactory::getApplication();
+        function fetchMonthByDayItemCount($month,$year){
+                $mainframe = JFactory::getApplication();
 		$user = JFactory::getUser();
 		$aid = $user->get('aid');
 		$db = JFactory::getDBO();
@@ -1114,33 +1107,29 @@ class MyCalendar extends Calendar
 		else
 		{
 			$accessCheck = " access <= {$aid}";
-		}
-
-		$query = "SELECT COUNT(*) FROM #__k2_items WHERE YEAR(created)={$year} AND MONTH(created)={$month} AND DAY(created)={$day} AND published=1 AND ( publish_up = ".$db->Quote($nullDate)." OR publish_up <= ".$db->Quote($now)." ) AND ( publish_down = ".$db->Quote($nullDate)." OR publish_down >= ".$db->Quote($now)." ) AND trash=0 AND {$accessCheck} {$languageCheck} AND EXISTS(SELECT * FROM #__k2_categories WHERE id= #__k2_items.catid AND published=1 AND trash=0 AND {$accessCheck} {$languageCheck})";
-
-		$catid = $this->category;
-		if ($catid > 0)
+                }
+                $query = "SELECT DAY(created) AS day,COUNT(*) AS count FROM #__k2_items WHERE YEAR(created)={$year} AND MONTH(created)={$month} AND published=1 AND ( publish_up = ".$db->Quote($nullDate)." OR publish_up <= ".$db->Quote($now)." ) AND ( publish_down = ".$db->Quote($nullDate)." OR publish_down >= ".$db->Quote($now)." ) AND trash=0 AND {$accessCheck} {$languageCheck} AND EXISTS(SELECT * FROM #__k2_categories WHERE id= #__k2_items.catid AND published=1 AND trash=0 AND {$accessCheck} {$languageCheck}) GROUP BY day";
+                $catid = $this->category;
+                if ($catid > 0)
 			$query .= " AND catid={$catid}";
 
 		$db->setQuery($query);
-		$result = $db->loadResult();
-		if ($db->getErrorNum())
-		{
-			echo $db->stderr();
-			return false;
-		}
-
-		if ($result > 0)
-		{
-			if ($catid > 0)
+		$result = $db->loadAssocList();
+                $byDayArr=array();
+                foreach ($result as $row){
+                       $byDayArr[$row["day"]]=$row["count"];
+                }
+		return $byDayArr;
+        }
+        
+	function getDateLink($day, $month, $year)
+	{
+                $catid = $this->category;
+                if ($catid > 0)
 				return JRoute::_(K2HelperRoute::getDateRoute($year, $month, $day, $catid));
-			else
-				return JRoute::_(K2HelperRoute::getDateRoute($year, $month, $day));
-		}
 		else
-		{
-			return false;
-		}
+				return JRoute::_(K2HelperRoute::getDateRoute($year, $month, $day));
+              
 	}
 
 	function getCalendarLink($month, $year)
