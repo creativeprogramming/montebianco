@@ -16,7 +16,7 @@ $doc->addStyleSheet( '/components/com_k2/templates/counterplan_graphic_title/css
 $doc->addScript( '/plugins/k2/asynk2/assets/js/jquery-timeago/jquery.timeago.js' );
 $doc->addScript( '/plugins/k2/asynk2/assets/js/jquery-timeago/locales/jquery.timeago.it.js' );
 
-//$doc->addScript( '/plugins/k2/asynk2/assets/js/pagination/creativeprogramming.it_pagination.awesomeness.js' );
+$doc->addScript( '/plugins/k2/asynk2/assets/js/pagination/creativeprogramming.it_pagination.awesomeness.js' );
 
 $doc->addScript( '/plugins/k2/asynk2/assets/js/imagesloaded.js' );
 ?>
@@ -270,7 +270,7 @@ setTimeout(function(){
 	<?php 
         //print_r($this->pagination);
         if(count($this->pagination->getPagesLinks())): ?>
-         <!-- Creativeprogramming.it Pagination awesomeness
+         <!-- start Creativeprogramming.it Pagination awesomeness  -->
         <div class="creativeprogramming_it_awesome_pagination_slider"
              data-min="1"
              data-max="<?php echo $this->pagination->pagesTotal;?>"
@@ -279,7 +279,7 @@ setTimeout(function(){
              >
         </div>
          Pag. <b><span class="creativeprogramming_it_awesome_pagination_currentpage"></span></b>/<?php echo $this->pagination->pagesTotal;?>
-         -->
+         <!-- end  Creativeprogramming.it Pagination awesomeness  -->
        
        <?php 
          $debugPagination=false;
@@ -299,7 +299,7 @@ setTimeout(function(){
          
          -->
          <div 
-            
+            style="max-height:0px!important; opacity: 0; float:left;"
             class="k2Pagination">
 		<?php if($this->params->get('catPagination')) echo $this->pagination->getPagesLinks(); ?>
 		<div class="clr"></div>
