@@ -451,10 +451,9 @@ class K2ViewItem extends K2View
 		// Set Facebook meta data
 		$document = JFactory::getDocument();
 		$uri = JURI::getInstance();
-       
-		$document->setMetaData('og:url', $uri->toString());
-		$document->setMetaData('og:title', htmlspecialchars($document->getTitle(), ENT_QUOTES, 'UTF-8'));
-		$document->setMetaData('og:type', 'article');
+		//$document->setMetaData('og:url', $uri->toString());
+		//$document->setMetaData('og:title', htmlspecialchars($document->getTitle(), ENT_QUOTES, 'UTF-8'));
+		//$document->setMetaData('og:type', 'article');
 		$facebookImage = 'image'.$params->get('facebookImage', 'Small');
 		if ($item->$facebookImage)
 		{
@@ -462,11 +461,11 @@ class K2ViewItem extends K2View
 			if (JFile::exists(JPATH_SITE.$parts['path']))
 			{
 				$image = substr(JURI::root(), 0, -1).str_replace(JURI::root(true), '', $item->$facebookImage);
-				$document->setMetaData('og:image', $image);
-				$document->setMetaData('image', $image);
+				//$document->setMetaData('og:image', $image);
+				//$document->setMetaData('image', $image);
 			}
 		}
-		$document->setMetaData('og:description', htmlspecialchars(strip_tags($document->getDescription()), ENT_QUOTES, 'UTF-8'));
+		//$document->setMetaData('og:description', htmlspecialchars(strip_tags($document->getDescription()), ENT_QUOTES, 'UTF-8'));
 
 		// Look for template files in component folders
 		$this->_addPath('template', JPATH_COMPONENT.DS.'templates');

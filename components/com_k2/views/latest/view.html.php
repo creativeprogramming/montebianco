@@ -104,7 +104,6 @@ class K2ViewLatest extends K2View
                         $link = urldecode(K2HelperRoute::getCategoryRoute($category->id.':'.urlencode($category->alias)));
                         $category->link = JRoute::_($link);
                         $category->feed = JRoute::_($link.'&format=feed');
-                        $category->feed = "http://cloud.feedly.com/#subscription/feed/".JURI::base().$category->feed;
 
                         JRequest::setVar('view', 'itemlist');
                         JRequest::setVar('task', 'category');
@@ -191,7 +190,7 @@ class K2ViewLatest extends K2View
 
                         $link = K2HelperRoute::getUserRoute($userObject->id);
                         $userObject->link = JRoute::_($link);
-                        $userObject->feed = JRoute::_("http://cloud.feedly.com/#subscription/feed/".JURI::base().$link.'&format=feed');
+                        $userObject->feed = JRoute::_($link.'&format=feed');
                         $userObject->name = htmlspecialchars($userObject->name, ENT_QUOTES);
                         if ($limit)
                         {
@@ -256,10 +255,10 @@ class K2ViewLatest extends K2View
         // Set Facebook meta data
         $document = JFactory::getDocument();
         $uri = JURI::getInstance();
-        $document->setMetaData('og:url', $uri->toString());
-        $document->setMetaData('og:title', (K2_JVERSION == '15') ? htmlspecialchars($document->getTitle(), ENT_QUOTES, 'UTF-8') : $document->getTitle());
-        $document->setMetaData('og:type', 'website');
-        $document->setMetaData('og:description', strip_tags($document->getDescription()));
+       // $document->setMetaData('og:url', $uri->toString());
+       // $document->setMetaData('og:title', htmlspecialchars($document->getTitle(), ENT_QUOTES, 'UTF-8'));
+       // $document->setMetaData('og:type', 'website');
+       // $document->setMetaData('og:description', htmlspecialchars(strip_tags($document->getDescription()), ENT_QUOTES, 'UTF-8'));
 
         //Look for template files in component folders
         $this->_addPath('template', JPATH_COMPONENT.DS.'templates');

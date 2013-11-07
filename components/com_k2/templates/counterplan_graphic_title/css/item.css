@@ -1,5 +1,7 @@
 /* k2 image title */
-
+#k2Container.itemView{
+    position: relative;
+}
 
 .articleabitoverimg{
     z-index: 9;
@@ -25,12 +27,14 @@
 
 
 .titleoverimg{
+    min-height: 5em;/*useful to show strip when no image TODO: better way to handle this */
     width: 100%;
     z-index: 9;
     position: absolute; 
     top: 2em; 
     background: white;
-    background: rgba(255,255,255,.93);
+    background: rgba(255,255,255,.95);
+    border-bottom: 1px lightgray solid;
   /*  -o-box-shadow: 0 0 5px #888;
     -moz-box-shadow: 0 0 5px #888;
     -ms-box-shadow: 0 0 5px #888;
@@ -43,6 +47,38 @@
 
 
 }
+
+article header h1, 
+article header h2 {
+    clear: both;
+    font-size: 38px;
+    font-weight: 300;
+    line-height: 42px;
+    padding: 0 0 6px;
+}
+
+.itemView article header ul {
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+.itemView article img {
+border: none;
+padding: 0px;
+}
+
+.itemView span.itemHits {
+    float: none;
+}
+
+.itemView article header ul li {
+color: #999;
+float: left;
+font-size: 12px;
+margin-right: 16px;
+}
+
 
 itemImage img{
   /*  -o-box-shadow: 0 0 5px #888;

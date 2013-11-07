@@ -18,7 +18,7 @@ $doc->addScript( '/plugins/k2/asynk2/assets/js/jquery-timeago/locales/jquery.tim
 
 $doc->addScript( '/plugins/k2/asynk2/assets/js/pagination/creativeprogramming.it_pagination.awesomeness.js' );
 
-$doc->addScript( '/plugins/k2/asynk2/assets/js/imagesloaded.js' );
+//$doc->addScript( '/plugins/k2/asynk2/assets/js/imagesloaded.js' );
 ?>
 <script>
 setTimeout(function(){
@@ -230,7 +230,7 @@ setTimeout(function(){
 
 	<?php 
         if(!isset($this->primary) || count($this->primary)==0){
-            echo "Error: this template requires you use only 'primary' articles check menu item or category configuration";
+            echo "<!-- Error: this template requires you use only 'primary' articles check menu item or category configuration -->";
         }
         
         if(isset($this->primary)): ?>
@@ -269,7 +269,7 @@ setTimeout(function(){
        	<!-- Pagination -->
 	<?php 
         //print_r($this->pagination);
-        if(count($this->pagination->getPagesLinks())): ?>
+        if(count($this->pagination->getPagesLinks()) && count($this->primary)>0 ): ?>
          <!-- start Creativeprogramming.it Pagination awesomeness  -->
         <div class="creativeprogramming_it_awesome_pagination_slider"
              data-min="1"
