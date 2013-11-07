@@ -22,7 +22,7 @@ class K2HelperUtilities
 		$mainframe = JFactory::getApplication();
 		$params = K2HelperUtilities::getParams('com_k2');
 
-		if (K2_CB && $userID != 'alias')
+		if (K2_CB===true && $userID != 'alias')
 		{
 			$cbUser = CBuser::getInstance((int)$userID);
 			if (is_object($cbUser))
