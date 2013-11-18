@@ -228,7 +228,7 @@ $K2(document).ready(function(){
 	else {
 		$K2('a.calendarNavLink').live('click',  function(event){
 			event.preventDefault();
-			var parentElement = $K2(this).parent().parent().parent().parent();
+			var parentElement = $K2(this).parent().parent().parent().parent().parent();
 			var url = $K2(this).attr('href');
 			parentElement.empty().addClass('k2CalendarLoader');
 			$K2.ajax({
@@ -236,6 +236,7 @@ $K2(document).ready(function(){
 				type: 'post',
 				success: function(response){
 					parentElement.html(response);
+                                        parentElement.trigger("change");
 					parentElement.removeClass('k2CalendarLoader');
 				}
 			});
